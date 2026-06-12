@@ -8,7 +8,7 @@
   </style>
   <text x="40" y="42" class="titulo">Ventilador Sirocco - esquema dimensional preliminar</text>
   <text x="40" y="72" class="cota">Vista frontal de la voluta y vista axial del rodete de doble entrada</text>
-  <polyline points="555.3,430.0 539.8,320.2 430.0,244.8 277.8,277.8 184.8,430.0 235.4,624.6 430.0,735.2 667.0,667.0 795.1,430.0" fill="none" stroke="#175d9c" stroke-width="5"/>
+  <polyline points="555.3,430.0 541.3,318.7 430.0,240.4 273.2,273.2 176.1,430.0 227.8,632.2 430.0,748.1 677.7,677.7 812.4,430.0" fill="none" stroke="#175d9c" stroke-width="5"/>
   <circle cx="430.0" cy="430.0" r="108.0" fill="#dceeff" stroke="#173f6b" stroke-width="4"/>
   <circle cx="430.0" cy="430.0" r="91.8" fill="white" stroke="#3483bd" stroke-width="3" stroke-dasharray="8 7"/>
   <rect x="538.0" y="250.0" width="257.1" height="180" fill="none" stroke="#175d9c" stroke-width="5"/>

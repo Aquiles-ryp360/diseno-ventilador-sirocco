@@ -7,7 +7,7 @@ tipo Sirocco con:
 - Presion estatica `H = 90 mmH2O = 882.6 Pa`.
 - Fluido: aire a `rho = 1.20 kg/m3`.
 
-## Revision V1
+## Revision V1.1
 
 El cierre unidimensional vigente selecciona:
 
@@ -29,7 +29,11 @@ convertirse en plano de fabricacion.
 - `06_calculos/memoria_calculo_sirocco_v1.md`: memoria tecnica vigente.
 - `06_calculos/resultados_v1/`: tablas CSV, JSON y esquema generado.
 - `07_planos/esquema_dimensional_sirocco.svg`: esquema dimensional V1.
+- `07_planos/rodete_sirocco_v1.dxf`: geometria 2D del rodete en milimetros.
+- `07_planos/voluta_sirocco_v1.dxf`: perfil 2D de la voluta y descarga.
+- `07_planos/geometria_cad_v1.svg`: vista previa de la geometria CAD.
 - `08_software/calculo_sirocco.py`: calculador reproducible.
+- `08_software/generar_geometria_cad.py`: generador de DXF, CSV, JSON y SVG.
 - `08_software/test_calculo_sirocco.py`: pruebas automaticas.
 - `05_avances/articulo_investigacion_borrador.md`: borrador academico.
 
@@ -38,11 +42,13 @@ convertirse en plano de fabricacion.
 ```bash
 python3 08_software/calculo_sirocco.py
 python3 08_software/calculo_sirocco.py --exportar 06_calculos/resultados_v1
-python3 -m pytest -q 08_software/test_calculo_sirocco.py
+python3 08_software/generar_geometria_cad.py --salida 07_planos
+python3 -m pytest -q 08_software
 ```
 
 ## Estado
 
 Esta version cierra el predimensionamiento del rodete, potencia, voluta,
-presupuesto de perdidas, eje y leyes de semejanza. Los siguientes hitos son el
-CAD 3D, la simulacion CFD, el calculo mecanico completo y la curva experimental.
+presupuesto de perdidas, eje, leyes de semejanza y geometria CAD 2D. Los
+siguientes hitos son el CAD 3D, la simulacion CFD, el calculo mecanico completo
+y la curva experimental.

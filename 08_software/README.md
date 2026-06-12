@@ -32,6 +32,16 @@ Las pruebas verifican conversion de unidades, cierre de potencia, crecimiento
 de la voluta, leyes de semejanza y la sobrecarga que produciria mantener
 `1500 rpm`.
 
+## Geometria CAD 2D
+
+```bash
+python3 08_software/generar_geometria_cad.py --salida 07_planos
+python3 -m pytest -q 08_software/test_geometria_cad.py
+```
+
+El generador crea archivos DXF R12 en milimetros para el rodete y la voluta,
+un CSV con la curva media del alabe, un JSON de parametros y un SVG de revision.
+
 ## Limite del modelo
 
 El programa es un calculo unidimensional. El factor de deslizamiento, el

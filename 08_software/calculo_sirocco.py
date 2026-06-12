@@ -116,19 +116,21 @@ def factor_deslizamiento_wiesner(beta2_grados: float, numero_alabes: int) -> flo
 def tabla_voluta(d: DatosDiseno, paso_grados: int = 45) -> list[dict[str, float]]:
     area_salida = d.caudal_m3_s / d.velocidad_descarga_m_s
     holgura = d.holgura_lengua_relativa * d.diametro_exterior_m
-    area_inicial = holgura * d.ancho_voluta_m
     filas = []
     for theta in range(0, 361, paso_grados):
         fraccion = theta / 360.0
-        area = area_inicial + (area_salida - area_inicial) * fraccion
-        altura = area / d.ancho_voluta_m
+        area = area_salida * fraccion
+        altura_flujo = area / d.ancho_voluta_m
+        separacion_total = holgura + altura_flujo
         filas.append(
             {
                 "angulo_grados": float(theta),
                 "fraccion_caudal": fraccion,
                 "area_m2": area,
-                "altura_radial_m": altura,
-                "radio_exterior_m": d.diametro_exterior_m / 2.0 + altura,
+                "altura_flujo_m": altura_flujo,
+                "separacion_radial_total_m": separacion_total,
+                "radio_exterior_m": d.diametro_exterior_m / 2.0
+                + separacion_total,
             }
         )
     return filas

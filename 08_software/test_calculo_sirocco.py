@@ -20,7 +20,10 @@ def test_voluta_crece_monotonicamente():
     filas = tabla_voluta(DatosDiseno())
     areas = [fila["area_m2"] for fila in filas]
     assert areas == sorted(areas)
+    assert areas[0] == 0.0
     assert abs(areas[-1] - 0.2) < 1e-12
+    assert abs(filas[0]["radio_exterior_m"] - 0.348) < 1e-12
+    assert abs(filas[-1]["radio_exterior_m"] - 1.0622857142857143) < 1e-12
 
 
 def test_leyes_de_semejanza_a_media_escala():

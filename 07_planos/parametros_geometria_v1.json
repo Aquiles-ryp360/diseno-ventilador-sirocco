@@ -1,0 +1,16 @@
+{
+  "radio_curvatura_m": 0.03007074276090943,
+  "centro_x_m": 0.28367897709266887,
+  "centro_y_m": 0.009042446743606604,
+  "angulo_polar_salida_rad": -0.05503274300463934,
+  "phi_inicio_rad": 3.447025272688801,
+  "phi_fin_rad": 5.268221475578066,
+  "beta1_grados": 17.5,
+  "beta2_grados": 125.0,
+  "diametro_exterior_m": 0.6,
+  "diametro_interior_m": 0.51,
+  "ancho_rodete_m": 0.23,
+  "numero_alabes": 48,
+  "espesor_alabe_m": 0.0012,
+  "radio_exterior_final_voluta_m": 1.0622857142857143
+}

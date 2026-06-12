@@ -144,24 +144,25 @@ fabricacion a `0.28 x 0.72 m`, conservando un area de `0.202 m2`.
 
 La separacion minima lengua-rodete se fija en `8 % de D2`, es decir `48 mm`.
 Este valor se encuentra cerca de la relacion `0.084` ensayada en un ventilador
-multialabe de referencia. La ley de areas V1 es lineal:
+multialabe de referencia. En la revision V1.1, la ley de areas de flujo es
+lineal y la holgura se incorpora por separado a la geometria radial:
 
 ```text
-A(theta) = A0 + (A_salida - A0) theta/360
-A0 = B_voluta x holgura_lengua = 0.01344 m2
+A(theta) = A_salida theta/360
+R_exterior(theta) = D2/2 + holgura_lengua + A(theta)/B_voluta
 ```
 
-| Angulo | Area `m2` | Altura radial `m` | Radio exterior `m` |
+| Angulo | Area `m2` | Altura de flujo `m` | Radio exterior `m` |
 |---:|---:|---:|---:|
-| 0 | 0.0134 | 0.048 | 0.348 |
-| 45 | 0.0368 | 0.131 | 0.431 |
-| 90 | 0.0601 | 0.215 | 0.515 |
-| 135 | 0.0834 | 0.298 | 0.598 |
-| 180 | 0.1067 | 0.381 | 0.681 |
-| 225 | 0.1300 | 0.464 | 0.764 |
-| 270 | 0.1534 | 0.548 | 0.848 |
-| 315 | 0.1767 | 0.631 | 0.931 |
-| 360 | 0.2000 | 0.714 | 1.014 |
+| 0 | 0.000 | 0.000 | 0.348 |
+| 45 | 0.025 | 0.089 | 0.437 |
+| 90 | 0.050 | 0.179 | 0.527 |
+| 135 | 0.075 | 0.268 | 0.616 |
+| 180 | 0.100 | 0.357 | 0.705 |
+| 225 | 0.125 | 0.446 | 0.794 |
+| 270 | 0.150 | 0.536 | 0.884 |
+| 315 | 0.175 | 0.625 | 0.973 |
+| 360 | 0.200 | 0.714 | 1.062 |
 
 Esta tabla define una primera espiral de seccion rectangular y ancho constante.
 La carcasa final puede suavizarse con una curva continua, conservando las areas.
@@ -211,7 +212,25 @@ Para una maqueta demostrativa es mas segura la primera opcion. Para reproducir
 la presion del prototipo debe usarse la segunda y verificar resistencia,
 balanceo y numero de Reynolds.
 
-## 12. Dimensiones congeladas para CAD V1
+## 12. Geometria del alabe para CAD V1.1
+
+Para obtener una curva fabricable se adopta un arco circular que pasa por los
+radios `D1/2` y `D2/2` y cumple las tangentes `beta1 = 17.5 grados` y
+`beta2 = 125 grados`. La solucion geometrica es:
+
+- Radio de curvatura de la linea media: `30.07 mm`.
+- Centro del arco respecto al eje del rodete: `(283.68, 9.04) mm`.
+- Desfase polar del borde de salida respecto al de entrada: `-3.15 grados`.
+- Espesor normal constante inicial: `1.2 mm`.
+- Longitud aproximada de la linea media: `54.8 mm`.
+- Paso circunferencial en `D2`: `39.3 mm`.
+- Solidez aproximada longitud/paso en salida: `1.39`.
+
+El generador repite el contorno 48 veces y crea un DXF R12 en milimetros. La
+curva circular es una base constructiva; el CFD puede justificar cambiarla por
+una curva Bezier o una distribucion variable de angulo.
+
+## 13. Dimensiones congeladas para CAD V1.1
 
 - Rodete: `D2 = 600 mm`, `D1 = 510 mm`, `b = 230 mm`.
 - Alabes: `48`, espesor inicial `1.2 mm`, `beta1 = 18 grados`,
@@ -222,18 +241,17 @@ balanceo y numero de Reynolds.
 - Velocidad de operacion: `1100 rpm`.
 - Motor: `5.5 kW` con correas o variador para ajustar el punto.
 
-## 13. Trabajo que aun falta
+## 14. Trabajo que aun falta
 
-1. Construir la curva media exacta del alabe y revisar su fabricabilidad.
-2. Definir discos laterales, cubo, chaveta, soldaduras y tolerancias.
-3. Calcular masa, flexion del eje, vida de rodamientos y velocidad critica.
-4. Crear CAD 3D del rodete y la voluta.
-5. Ejecutar CFD estacionario y transitorio con refinamiento en la lengua.
-6. Obtener las curvas `Delta p-Q`, potencia y eficiencia.
-7. Corregir la geometria y preparar planos finales.
-8. Ensayar el prototipo con medicion de caudal, presion, rpm y potencia.
+1. Definir discos laterales, cubo, chaveta, soldaduras y tolerancias.
+2. Calcular masa, flexion del eje, vida de rodamientos y velocidad critica.
+3. Crear CAD 3D del rodete y la voluta a partir de los DXF.
+4. Ejecutar CFD estacionario y transitorio con refinamiento en la lengua.
+5. Obtener las curvas `Delta p-Q`, potencia y eficiencia.
+6. Corregir la geometria y preparar planos finales.
+7. Ensayar el prototipo con medicion de caudal, presion, rpm y potencia.
 
-## 14. Referencias tecnicas usadas en esta revision
+## 15. Referencias tecnicas usadas en esta revision
 
 - AMCA International, *Derivation of the Fan Laws*:
   https://www.amca.org/assets/resources/public/pdf/White%20Papers/2020%20-%20Derivation%20of%20the%20Fan%20Laws.pdf

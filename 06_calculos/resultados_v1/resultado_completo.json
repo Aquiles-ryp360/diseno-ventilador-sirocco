@@ -56,65 +56,74 @@
       {
         "angulo_grados": 0.0,
         "fraccion_caudal": 0.0,
-        "area_m2": 0.013440000000000002,
-        "altura_radial_m": 0.048,
+        "area_m2": 0.0,
+        "altura_flujo_m": 0.0,
+        "separacion_radial_total_m": 0.048,
         "radio_exterior_m": 0.348
       },
       {
         "angulo_grados": 45.0,
         "fraccion_caudal": 0.125,
-        "area_m2": 0.03676,
-        "altura_radial_m": 0.13128571428571428,
-        "radio_exterior_m": 0.4312857142857143
+        "area_m2": 0.025,
+        "altura_flujo_m": 0.08928571428571429,
+        "separacion_radial_total_m": 0.1372857142857143,
+        "radio_exterior_m": 0.4372857142857143
       },
       {
         "angulo_grados": 90.0,
         "fraccion_caudal": 0.25,
-        "area_m2": 0.06008,
-        "altura_radial_m": 0.21457142857142855,
-        "radio_exterior_m": 0.5145714285714286
+        "area_m2": 0.05,
+        "altura_flujo_m": 0.17857142857142858,
+        "separacion_radial_total_m": 0.2265714285714286,
+        "radio_exterior_m": 0.5265714285714286
       },
       {
         "angulo_grados": 135.0,
         "fraccion_caudal": 0.375,
-        "area_m2": 0.0834,
-        "altura_radial_m": 0.2978571428571428,
-        "radio_exterior_m": 0.5978571428571429
+        "area_m2": 0.07500000000000001,
+        "altura_flujo_m": 0.26785714285714285,
+        "separacion_radial_total_m": 0.31585714285714284,
+        "radio_exterior_m": 0.6158571428571429
       },
       {
         "angulo_grados": 180.0,
         "fraccion_caudal": 0.5,
-        "area_m2": 0.10672000000000001,
-        "altura_radial_m": 0.3811428571428571,
-        "radio_exterior_m": 0.681142857142857
+        "area_m2": 0.1,
+        "altura_flujo_m": 0.35714285714285715,
+        "separacion_radial_total_m": 0.40514285714285714,
+        "radio_exterior_m": 0.7051428571428571
       },
       {
         "angulo_grados": 225.0,
         "fraccion_caudal": 0.625,
-        "area_m2": 0.13004000000000002,
-        "altura_radial_m": 0.46442857142857147,
-        "radio_exterior_m": 0.7644285714285715
+        "area_m2": 0.125,
+        "altura_flujo_m": 0.4464285714285714,
+        "separacion_radial_total_m": 0.4944285714285714,
+        "radio_exterior_m": 0.7944285714285714
       },
       {
         "angulo_grados": 270.0,
         "fraccion_caudal": 0.75,
-        "area_m2": 0.15336,
-        "altura_radial_m": 0.5477142857142856,
-        "radio_exterior_m": 0.8477142857142856
+        "area_m2": 0.15000000000000002,
+        "altura_flujo_m": 0.5357142857142857,
+        "separacion_radial_total_m": 0.5837142857142857,
+        "radio_exterior_m": 0.8837142857142857
       },
       {
         "angulo_grados": 315.0,
         "fraccion_caudal": 0.875,
-        "area_m2": 0.17668,
-        "altura_radial_m": 0.631,
-        "radio_exterior_m": 0.931
+        "area_m2": 0.17500000000000002,
+        "altura_flujo_m": 0.625,
+        "separacion_radial_total_m": 0.673,
+        "radio_exterior_m": 0.9730000000000001
       },
       {
         "angulo_grados": 360.0,
         "fraccion_caudal": 1.0,
         "area_m2": 0.2,
-        "altura_radial_m": 0.7142857142857143,
-        "radio_exterior_m": 1.0142857142857142
+        "altura_flujo_m": 0.7142857142857143,
+        "separacion_radial_total_m": 0.7622857142857143,
+        "radio_exterior_m": 1.0622857142857143
       }
     ]
   },
