@@ -1,0 +1,16 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Temporary editor files
+*~
+*.swp
+*.swo
+
+# Local transient files
+*.tmp
+*.bak

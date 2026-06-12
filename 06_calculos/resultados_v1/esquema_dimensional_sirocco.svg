@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="820" viewBox="0 0 1100 820">
+  <rect width="1100" height="820" fill="white"/>
+  <style>
+    text { font-family: Arial, sans-serif; fill: #172033; }
+    .titulo { font-size: 26px; font-weight: bold; }
+    .etiqueta { font-size: 17px; }
+    .cota { font-size: 15px; fill: #34415c; }
+  </style>
+  <text x="40" y="42" class="titulo">Ventilador Sirocco - esquema dimensional preliminar</text>
+  <text x="40" y="72" class="cota">Vista frontal de la voluta y vista axial del rodete de doble entrada</text>
+  <polyline points="555.3,430.0 539.8,320.2 430.0,244.8 277.8,277.8 184.8,430.0 235.4,624.6 430.0,735.2 667.0,667.0 795.1,430.0" fill="none" stroke="#175d9c" stroke-width="5"/>
+  <circle cx="430.0" cy="430.0" r="108.0" fill="#dceeff" stroke="#173f6b" stroke-width="4"/>
+  <circle cx="430.0" cy="430.0" r="91.8" fill="white" stroke="#3483bd" stroke-width="3" stroke-dasharray="8 7"/>
+  <rect x="538.0" y="250.0" width="257.1" height="180" fill="none" stroke="#175d9c" stroke-width="5"/>
+  <line x1="322.0" y1="565.0" x2="538.0" y2="565.0" stroke="#a33b32" stroke-width="2"/>
+  <text x="352.0" y="558.0" class="cota">D2 = 0.60 m</text>
+  <text x="358.0" y="438.0" class="cota">D1 = 0.51 m</text>
+  <text x="700" y="155" class="etiqueta">Salida: 0.28 x 0.71 m</text>
+  <text x="700" y="185" class="etiqueta">Holgura lengua: 48 mm</text>
+  <text x="700" y="215" class="etiqueta">Velocidad: 1100 rpm</text>
+  <text x="700" y="245" class="etiqueta">Alabes: 48, beta2 = 125 grados</text>
+  <g transform="translate(705,360)">
+    <text x="0" y="-45" class="titulo">Vista axial</text>
+    <rect x="0" y="0" width="260" height="180" fill="#dceeff" stroke="#173f6b" stroke-width="4"/>
+    <rect x="25" y="22" width="210" height="136" fill="white" stroke="#3483bd" stroke-width="3"/>
+    <line x1="-65" y1="90" x2="25" y2="90" stroke="#2a8a4b" stroke-width="5" marker-end="url(#flecha)"/>
+    <line x1="325" y1="90" x2="235" y2="90" stroke="#2a8a4b" stroke-width="5" marker-end="url(#flecha)"/>
+    <text x="42" y="205" class="cota">Rodete b = 0.23 m</text>
+    <text x="32" y="230" class="cota">Voluta B = 0.28 m</text>
+    <text x="55" y="75" class="etiqueta">doble entrada</text>
+  </g>
+  <defs>
+    <marker id="flecha" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2a8a4b"/>
+    </marker>
+  </defs>
+  <text x="40" y="785" class="cota">No usar para fabricar sin cerrar resistencia, tolerancias, balanceo y validacion CFD/experimental.</text>
+</svg>

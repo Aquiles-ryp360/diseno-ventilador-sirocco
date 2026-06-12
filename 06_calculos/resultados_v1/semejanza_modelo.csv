@@ -1,0 +1,3 @@
+modo,escala,diametro_m,rpm,caudal_m3_s,presion_pa,potencia_eje_kw
+misma_rpm,0.5,0.3,1100.0,0.375,220.649625,0.15190116274572554
+misma_velocidad_periferica,0.5,0.3,2200.0,0.75,882.5985,1.2152093019658043
