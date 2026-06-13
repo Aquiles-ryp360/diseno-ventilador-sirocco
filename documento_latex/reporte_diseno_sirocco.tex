@@ -1,0 +1,176 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+
+% Configuration of hyperref
+\hypersetup{
+    colorlinks=true,
+    linkcolor=cyan,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+
+% Page headers and footers
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\textcolor{gray}{Proyecto Académico Sirocco V1}}
+\lhead{\textcolor{gray}{Diseño de Turbomáquinas}}
+\cfoot{\thepage}
+\newcommand{\hrules}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+
+% --- PORTADA ---
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    {\scshape\LARGE Universidad Nacional\par}
+    \vspace{1.5cm}
+    {\scshape\Large Facultad de Ingeniería\par}
+    \vspace{0.5cm}
+    {\large Curso: Diseño de Turbomáquinas\par}
+    \vspace{2cm}
+    \hrules
+    \vspace{0.4cm}
+    {\huge\bfseries Diseño y Cálculo Reproducible de un Ventilador Centrífugo Tipo Sirocco V1\par}
+    \vspace{0.4cm}
+    \hrules
+    \vspace{1.5cm}
+    {\large\bfseries Grupo 2\par}
+    \vspace{0.5cm}
+    {\large Revisión: Versión V1 (Cierre Unidimensional)\par}
+    \vfill
+    {\large \today\par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% --- SECCIÓN 1: INTRODUCCIÓN ---
+\section{Introducción y Alcance}
+El presente documento expone la memoria técnica y el predimensionamiento de un ventilador centrífugo multialabe del tipo Sirocco, de doble ancho y doble entrada (DIDW), diseñado para operar con aire limpio en condiciones normales.
+
+El punto de diseño especificado para el proyecto es el siguiente:
+\begin{itemize}
+    \item \textbf{Caudal de diseño ($Q$):} $3.0\text{ m}^3/\text{s}$ ($10,800\text{ m}^3/\text{h}$).
+    \item \textbf{Presión estática del ventilador ($\Delta p_s$):} $90\text{ mmH}_2\text{O}$ ($882.6\text{ Pa}$).
+    \item \textbf{Densidad de diseño del aire ($\rho$):} $1.20\text{ kg/m}^3$.
+\end{itemize}
+
+El dimensionamiento actual constituye la fase de análisis unidimensional (Revisión V1). Los resultados que se muestran a continuación establecen la geometría base adecuada para el posterior modelado CAD y la validación aerodinámica tridimensional mediante dinámica de fluidos computacional (CFD).
+
+% --- SECCIÓN 2: CONFIGURACIÓN ---
+\section{Configuración Seleccionada}
+Debido al elevado caudal requerido ($3.0\text{ m}^3/\text{s}$), un ventilador de entrada simple (SISW) exigiría un diámetro de succión excesivamente grande, lo que derivaría en altas pérdidas secundarias en la boca de entrada o velocidades axiales muy elevadas.
+
+Para mitigar este problema, se ha seleccionado una configuración de \textbf{Doble Entrada y Doble Ancho (DIDW)}. Esta arquitectura divide el caudal de succión en dos ojos de entrada iguales ($1.5\text{ m}^3/\text{s}$ cada uno), reduciendo significativamente la velocidad axial en el ojo a un valor óptimo de aproximadamente $7.77\text{ m/s}$, atenuando el ruido tonal y las pérdidas aerodinámicas por choque en la entrada de la corona.
+
+% --- SECCIÓN 3: GEOMETRÍA ---
+\section{Parámetros Geométricos del Rodete}
+La geometría calculada para la revisión V1 del rodete Sirocco presenta las siguientes dimensiones y coeficientes constructivos:
+
+\begin{table}[H]
+\centering
+\caption{Dimensiones del Rodete Sirocco V1}
+\begin{tabular}{lcr}
+\toprule
+\textbf{Parámetro} & \textbf{Símbolo} & \textbf{Valor} \\
+\midrule
+Diámetro exterior del rodete & $D_2$ & $600\text{ mm}$ \\
+Diámetro de entrada del rodete & $D_1$ & $510\text{ mm}$ \\
+Relación de diámetros & $D_1/D_2$ & $0.850$ \\
+Ancho constructivo del rodete & $b$ & $230\text{ mm}$ \\
+Número de álabes & $Z$ & $48$ \\
+Ángulo de salida del álabe & $\beta_2$ & $125^\circ$ \\
+Ángulo de entrada del álabe & $\beta_1$ & $18^\circ$ \\
+Espesor del álabe & $t$ & $1.2\text{ mm}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La relación de diámetros de $0.85$ es la estándar para ventiladores Sirocco. Permite álabes de longitud radial corta, dejando un espacio central amplio para distribuir el aire axial. El ángulo $\beta_2 = 125^\circ$ indica álabes fuertemente curvados hacia adelante, diseñados para transferir una gran componente cinética al flujo.
+
+% --- SECCIÓN 4: CÁLCULOS ---
+\section{Cálculos Fluidodinámicos y Velocidades}
+A continuación, se detallan los resultados del análisis del triángulo de velocidades a la salida del rodete a la velocidad recomendada de operación de \textbf{1100 RPM}:
+
+\subsection{Velocidades de la Corriente a la Salida}
+\begin{itemize}
+    \item \textbf{Velocidad Periférica ($U_2$):} 
+    \begin{equation}
+        U_2 = \frac{\pi \cdot D_2 \cdot n}{60} = 34.56\text{ m/s}
+    \end{equation}
+    \item \textbf{Velocidad Radial/Meridional ($C_{m2}$):} Calculada descontando el bloqueo efectivo por espesor de los álabes ($k_{b2} = 0.963$):
+    \begin{equation}
+        C_{m2} = \frac{Q}{\pi \cdot D_2 \cdot b \cdot k_{b2}} = 7.19\text{ m/s}
+    \end{equation}
+    \item \textbf{Factor de Deslizamiento (Wiesner):} Permite corregir el ángulo real de salida del aire debido al guiado finito:
+    \begin{equation}
+        \sigma = 1 - \frac{\sqrt{\sin\beta_2}}{Z^{0.7}} = 0.940
+    \end{equation}
+    \item \textbf{Componente Tangencial ($C_{u2}$):}
+    \begin{equation}
+        C_{u2} = \sigma \cdot U_2 - C_{m2} \cdot \cot\beta_2 = 37.51\text{ m/s}
+    \end{equation}
+\end{itemize}
+
+\subsection{Potencia y Eficiencia}
+Con estas velocidades, el incremento de presión teórico de Euler es de $\Delta p_E = \rho \cdot U_2 \cdot C_{u2} = 1555.5\text{ Pa}$. 
+
+La potencia al eje requerida (asumiendo una eficiencia de transmisión mecánica del $96\%$) se calcula en \textbf{4.86 kW}, lo que arroja una eficiencia estática estimada del \textbf{54.5\%} para el punto de operación. Por lo tanto, se ha prescrito la selección de un motor de \textbf{5.5 kW} (con un margen de seguridad del $13.1\%$).
+
+% --- SECCIÓN 5: VOLUTA ---
+\section{Geometría de la Voluta}
+El aire abandona la salida del rodete con una velocidad absoluta muy elevada ($C_2 \approx 38.2\text{ m/s}$). La carcasa espiral (voluta) tiene la función de actuar como difusor para reconvertir esta energía cinética en presión estática:
+
+\begin{itemize}
+    \item \textbf{Ancho interior de la voluta:} $280\text{ mm}$, holgura lateral adecuada respecto al rodete de $230\text{ mm}$ para prevenir fricciones por desalineación.
+    \item \textbf{Holgura de la Lengua (Cut-off):} Se sitúa a $48\text{ mm}$ del rodete ($8\%$ de $D_2$). Esta holgura controla el nivel de ruido aerodinámico provocado por las pulsaciones periódicas de paso de los álabes.
+    \item \textbf{Velocidad de descarga final:} $\approx 15\text{ m/s}$ en la boca de salida de la voluta.
+\end{itemize}
+
+% --- SECCIÓN 6: COMPARATIVA ---
+\section{Análisis Operativo: 1100 RPM vs 1500 RPM}
+Durante los tanteos preliminares se evaluó una velocidad de rotación de $1500\text{ RPM}$. Sin embargo, se descartó debido a las siguientes restricciones:
+
+\begin{table}[H]
+\centering
+\caption{Comparativa de Velocidades de Giro}
+\begin{tabular}{lccl}
+\toprule
+\textbf{Magnitud} & \textbf{1100 RPM (V1)} & \textbf{1500 RPM (Tanteo)} & \textbf{Análisis} \\
+\midrule
+Velocidad Periférica ($U_2$) & $34.56\text{ m/s}$ & $47.12\text{ m/s}$ & Mayor esfuerzo estructural \\
+Presión de Euler ($\Delta p_E$) & $1555.5\text{ Pa}$ & $2892.4\text{ Pa}$ & Exceso innecesario de presión \\
+Potencia al Eje Estimada & $4.86\text{ kW}$ & $9.03\text{ kW}$ & Excede motor de $5.5\text{ kW}$ \\
+Estado de Viabilidad & \textbf{VIABLE} & \textbf{INVIABLE} & Seleccionada a 1100 RPM \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A 1500 RPM la potencia demandada ($9.03\text{ kW}$) superaba con creces el límite del motor de $5.5\text{ kW}$ disponible comercialmente para esta gama de tamaño del ventilador. La selección de 1100 RPM ajusta la presión útil al punto requerido con un consumo de potencia óptimo.
+
+% --- SECCIÓN 7: REPOSITORIO ---
+\section{Estructura del Proyecto Académico}
+El repositorio oficial del proyecto (\url{https://github.com/Aquiles-ryp360/diseno-ventilador-sirocco}) se encuentra organizado bajo las siguientes carpetas:
+\begin{itemize}
+    \item \textbf{00\_gestion:} Planificación y cronogramas.
+    \item \textbf{04\_bibliografia:} Literatura y catálogos técnicos consultados.
+    \item \textbf{05\_avances:} Informes periódicos entregados al docente.
+    \item \textbf{06\_calculos:} Memorias de cálculo en formato Markdown.
+    \item \textbf{07\_planos:} Modelos CAD y planos DXF de fabricación.
+    \item \textbf{08\_software:} Scripts de cálculo desarrollados en Python y Octave.
+    \item \textbf{presentacion:} Diapositivas web interactivas (HTML/CSS/JS) y formato PowerPoint.
+\end{itemize}
+
+\end{document}
