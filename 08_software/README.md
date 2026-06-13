@@ -52,8 +52,35 @@ python3 -m pytest -q 08_software/test_calculo_mecanico_sirocco.py
 Incluye masa del rotor, carga de correas, reacciones, momento flector, diametro
 del eje, velocidad critica y capacidad dinamica minima de rodamientos.
 
+## Modelo 3D
+
+```bash
+python3 08_software/generar_modelo_3d.py --salida 07_modelos_3d
+python3 -m pytest -q 08_software/test_modelo_3d.py
+```
+
+Genera mallas OBJ en milimetros del rodete, la voluta y el conjunto, junto con
+el archivo MTL y los datos geometricos empleados por la interfaz web.
+
+## Informe PDF
+
+```bash
+python3 08_software/generar_reporte_pdf.py
+```
+
+Genera los graficos y la memoria tecnica de 12 paginas en `09_reporte/`. El
+informe se construye directamente desde los resultados aerodinamicos y
+mecanicos para mantener consistencia numerica.
+
+## Interfaz 3D offline
+
+En Windows se abre `ABRIR_MODELO_3D.bat`. La interfaz tambien puede iniciarse
+abriendo `10_interfaz_3d/index.html` en Linux o macOS. Three.js y los controles
+estan incluidos localmente, por lo que no se descargan dependencias al abrirla.
+
 ## Limite del modelo
 
 El programa es un calculo unidimensional. El factor de deslizamiento, el
 presupuesto de perdidas y la ley de areas son hipotesis de ingenieria que deben
-calibrarse con CFD o ensayo. No genera por si solo un plano de fabricacion.
+calibrarse con CFD o ensayo. La malla 3D sirve para revision y comunicacion, no
+reemplaza un modelo de fabricacion con tolerancias y uniones verificadas.

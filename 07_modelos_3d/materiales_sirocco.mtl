@@ -1,0 +1,23 @@
+# Materiales del ventilador Sirocco
+newmtl alabes
+Kd 0.08 0.42 0.78
+Ks 0.55 0.55 0.55
+Ns 80
+newmtl anillos
+Kd 0.12 0.55 0.88
+Ks 0.6 0.6 0.6
+Ns 100
+newmtl disco
+Kd 0.17 0.30 0.43
+newmtl cubo
+Kd 0.18 0.20 0.23
+newmtl eje
+Kd 0.55 0.58 0.62
+Ks 0.75 0.75 0.75
+Ns 120
+newmtl polea
+Kd 0.85 0.38 0.08
+newmtl voluta
+Kd 0.10 0.62 0.72
+d 0.32
+Tr 0.68

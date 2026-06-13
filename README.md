@@ -7,7 +7,7 @@ tipo Sirocco con:
 - Presion estatica `H = 90 mmH2O = 882.6 Pa`.
 - Fluido: aire a `rho = 1.20 kg/m3`.
 
-## Revision V1.1
+## Revision V1.2
 
 El cierre unidimensional vigente selecciona:
 
@@ -37,8 +37,14 @@ convertirse en plano de fabricacion.
 - `08_software/calculo_sirocco.py`: calculador reproducible.
 - `08_software/generar_geometria_cad.py`: generador de DXF, CSV, JSON y SVG.
 - `08_software/calculo_mecanico_sirocco.py`: masa, eje y rodamientos.
+- `08_software/generar_modelo_3d.py`: generador reproducible de mallas OBJ.
+- `08_software/generar_reporte_pdf.py`: generador del informe y sus graficos.
 - `08_software/test_calculo_sirocco.py`: pruebas automaticas.
 - `05_avances/articulo_investigacion_borrador.md`: borrador academico.
+- `07_modelos_3d/`: modelos OBJ del rodete, voluta y conjunto.
+- `10_interfaz_3d/index.html`: interfaz grafica 3D autonoma y offline.
+- `ABRIR_MODELO_3D.bat`: lanzador de la interfaz para Windows.
+- `09_reporte/Informe_Diseno_Ventilador_Sirocco.pdf`: memoria de 12 paginas.
 
 ## Ejecutar
 
@@ -46,12 +52,20 @@ convertirse en plano de fabricacion.
 python3 08_software/calculo_sirocco.py
 python3 08_software/calculo_sirocco.py --exportar 06_calculos/resultados_v1
 python3 08_software/generar_geometria_cad.py --salida 07_planos
+python3 08_software/generar_modelo_3d.py --salida 07_modelos_3d
+python3 08_software/generar_reporte_pdf.py
 python3 -m pytest -q 08_software
 ```
+
+En Windows, la inspeccion 3D se inicia con doble clic en
+`ABRIR_MODELO_3D.bat`. En Linux y macOS se abre directamente
+`10_interfaz_3d/index.html` en un navegador moderno. Todos los recursos del
+visor estan incluidos en el proyecto y no requieren conexion a Internet.
 
 ## Estado
 
 Esta version cierra el predimensionamiento del rodete, potencia, voluta,
-presupuesto de perdidas, eje, leyes de semejanza, geometria CAD 2D y calculo
-mecanico inicial. Los siguientes hitos son el CAD 3D, la simulacion CFD, las
-uniones estructurales y la curva experimental.
+presupuesto de perdidas, eje, leyes de semejanza, geometria CAD 2D, mallas 3D,
+interfaz interactiva y calculo mecanico inicial. Los siguientes hitos son la
+simulacion CFD, el analisis estructural, las uniones, tolerancias y la curva
+experimental.

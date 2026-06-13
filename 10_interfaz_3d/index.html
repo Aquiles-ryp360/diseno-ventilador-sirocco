@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ventilador Sirocco V1.2 - Modelo 3D</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">PROYECTO DE TURBOMAQUINAS</p>
+        <h1>Ventilador centrífugo Sirocco <span>V1.2</span></h1>
+      </div>
+      <div class="badges">
+        <span>10 800 m³/h</span><span>882.6 Pa</span><span>1100 rpm</span><span>5.5 kW</span>
+      </div>
+    </header>
+
+    <aside class="panel">
+      <section>
+        <h2>Visualización</h2>
+        <div class="button-grid">
+          <button data-view="iso" class="active">Isométrica</button>
+          <button data-view="front">Frontal</button>
+          <button data-view="side">Lateral</button>
+          <button data-view="top">Superior</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Componentes</h2>
+        <label class="switch"><input id="showRotor" type="checkbox" checked><span></span>Rodete y eje</label>
+        <label class="switch"><input id="showVolute" type="checkbox" checked><span></span>Voluta</label>
+        <label class="switch"><input id="showFlow" type="checkbox" checked><span></span>Trayectoria del aire</label>
+        <label class="switch"><input id="showGrid" type="checkbox" checked><span></span>Plano de referencia</label>
+      </section>
+
+      <section>
+        <h2>Animación</h2>
+        <label class="switch"><input id="spinRotor" type="checkbox" checked><span></span>Girar rodete</label>
+        <label for="speed">Velocidad visual <b id="speedValue">35%</b></label>
+        <input id="speed" type="range" min="0" max="100" value="35">
+        <label for="explode">Vista explotada <b id="explodeValue">0%</b></label>
+        <input id="explode" type="range" min="0" max="100" value="0">
+        <label for="opacity">Transparencia voluta <b id="opacityValue">24%</b></label>
+        <input id="opacity" type="range" min="8" max="85" value="24">
+      </section>
+
+      <section>
+        <h2>Datos de diseño</h2>
+        <dl class="specs">
+          <div><dt>Rodete</dt><dd>Ø600 × 230 mm</dd></div>
+          <div><dt>Entrada</dt><dd>Ø510 mm, doble</dd></div>
+          <div><dt>Álabes</dt><dd>48, curvados adelante</dd></div>
+          <div><dt>Voluta</dt><dd>280 mm de ancho</dd></div>
+          <div><dt>Lengua</dt><dd>48 mm</dd></div>
+          <div><dt>Eje</dt><dd>Ø35 mm</dd></div>
+          <div><dt>Masa rotor</dt><dd>18.63 kg estimada</dd></div>
+          <div><dt>Eficiencia</dt><dd>54.5% estimada</dd></div>
+        </dl>
+      </section>
+
+      <div class="actions">
+        <button id="resetView">Restablecer</button>
+        <button id="screenshot" class="primary">Guardar captura</button>
+      </div>
+      <p class="offline">● Interfaz offline. No requiere internet.</p>
+    </aside>
+
+    <main id="viewport">
+      <canvas id="canvas3d"></canvas>
+      <div id="componentInfo">Arrastre para rotar · Rueda para acercar · Clic para identificar</div>
+      <div class="axis-legend"><i class="x"></i>X <i class="y"></i>Y <i class="z"></i>Z</div>
+      <button id="fullscreen" title="Pantalla completa">⛶</button>
+      <noscript>Active JavaScript para visualizar el modelo 3D.</noscript>
+    </main>
+  </div>
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/OrbitControls.js"></script>
+  <script src="../07_modelos_3d/modelo_sirocco_v1_2.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

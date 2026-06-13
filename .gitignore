@@ -5,6 +5,7 @@ Thumbs.db
 # Python caches
 __pycache__/
 *.py[cod]
+.pytest_cache/
 
 # Temporary editor files
 *~
