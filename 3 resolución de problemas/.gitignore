@@ -1,0 +1,11 @@
+# Archivos auxiliares generados por LaTeX
+latex/*.aux
+latex/*.log
+latex/*.out
+latex/*.toc
+latex/*.fls
+latex/*.fdb_latexmk
+latex/*.synctex.gz
+
+# El PDF publicable se conserva únicamente en pdf/
+latex/*.pdf
