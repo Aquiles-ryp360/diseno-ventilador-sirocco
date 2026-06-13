@@ -8,7 +8,7 @@ muestra las dimensiones congeladas para iniciar CAD:
 - Voluta de `280 mm` de ancho interior.
 - Descarga teorica `280 x 714 mm`.
 - Holgura lengua-rodete `48 mm`.
-- Eje preliminar `30 mm`.
+- Eje preliminar `35 mm` segun la memoria mecanica.
 
 El SVG es un esquema de predimensionamiento, no un plano de taller. Todavia
 faltan tolerancias, materiales definitivos, uniones, balanceo y calculo

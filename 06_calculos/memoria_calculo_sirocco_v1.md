@@ -196,10 +196,9 @@ T_diseno = 1.5 T = 63.30 N m
 d_min = (16 T_diseno/(pi tau_adm))^(1/3) = 22.1 mm
 ```
 
-Para incluir chavetero, flexion, desalineacion e incertidumbre de masa se adopta
-un eje preliminar de acero de `30 mm`. Esto permite usar soportes comerciales de
-30 mm, pero la seleccion de rodamientos queda pendiente hasta conocer masa del
-rodete, distancia entre apoyos y desbalance admisible.
+El calculo puramente torsional entrega un minimo redondeado de `30 mm`. La
+memoria mecanica posterior incorpora masa, flexion, chavetero y carga de correas
+y eleva la seleccion preliminar a `35 mm`. Este ultimo valor es el vigente.
 
 ## 11. Modelo por semejanza a escala 1:2
 
@@ -237,7 +236,7 @@ una curva Bezier o una distribucion variable de angulo.
   `beta2 = 125 grados`.
 - Voluta: ancho interior `280 mm`, holgura de lengua `48 mm`.
 - Descarga: `280 x 714 mm` antes de redondeo constructivo.
-- Eje preliminar: `30 mm`.
+- Eje preliminar vigente: `35 mm`; `30 mm` es solo el minimo torsional.
 - Velocidad de operacion: `1100 rpm`.
 - Motor: `5.5 kW` con correas o variador para ajustar el punto.
 

@@ -1,0 +1,60 @@
+{
+  "entradas_mecanicas": {
+    "densidad_acero_kg_m3": 7850.0,
+    "espesor_anillos_m": 0.002,
+    "espesor_disco_central_m": 0.003,
+    "diametro_exterior_cubo_m": 0.08,
+    "longitud_cubo_m": 0.08,
+    "factor_masa_soldadura": 1.08,
+    "luz_rodamientos_m": 0.5,
+    "posicion_rodete_m": 0.25,
+    "voladizo_polea_m": 0.075,
+    "diametro_polea_ventilador_m": 0.2,
+    "factor_carga_correa": 2.5,
+    "factor_choque_flexion": 1.5,
+    "factor_choque_torsion": 1.5,
+    "factor_chavetero_diametro": 1.2,
+    "esfuerzo_cortante_admisible_pa": 30000000.0,
+    "modulo_elasticidad_pa": 200000000000.0,
+    "vida_objetivo_h": 20000.0
+  },
+  "geometria": {
+    "longitud_linea_media_alabe_mm": 54.76472253422812,
+    "diametro_polea_ventilador_mm": 200.0
+  },
+  "masas": {
+    "alabes_kg": 5.695355896447615,
+    "anillos_entrada_kg": 2.4636840828349196,
+    "disco_central_kg": 6.540230418096303,
+    "cubo_kg": 2.5524654912253673,
+    "masa_subtotal_kg": 17.251735888604205,
+    "masa_rotor_con_soldadura_kg": 18.631874759692543,
+    "peso_rotor_n": 182.71627461213887
+  },
+  "cargas": {
+    "torque_nominal_nm": 42.197796501623884,
+    "fuerza_tangencial_correa_n": 421.97796501623884,
+    "carga_radial_correa_n": 1054.9449125405972,
+    "reaccion_rodamiento_a_n": -66.88359957502007,
+    "reaccion_rodamiento_b_n": 1304.5447867277562,
+    "momento_flector_maximo_nm": 79.03974848143392,
+    "posicion_momento_maximo_m": 0.499675,
+    "fuerza_centrifuga_por_alabe_n": 436.9031985673301,
+    "tension_centrifuga_referencia_mpa": 9.374643740374726
+  },
+  "eje": {
+    "momento_equivalente_nm": 134.39812389539443,
+    "diametro_asme_sin_chavetero_mm": 28.362685796467716,
+    "diametro_con_factor_chavetero_mm": 34.035222955761256,
+    "diametro_recomendado_mm": 35.0,
+    "flecha_estatica_centro_mm": 0.032297873983460304,
+    "primera_velocidad_critica_rpm": 5261.9261911069225,
+    "relacion_critica_operacion": 4.783569264642657
+  },
+  "rodamientos": {
+    "vida_objetivo_h": 20000.0,
+    "carga_radial_calculo_n": 1304.5447867277562,
+    "capacidad_dinamica_minima_kn": 14.310351588372418,
+    "diametro_interior_requerido_mm": 35.0
+  }
+}

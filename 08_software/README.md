@@ -42,6 +42,16 @@ python3 -m pytest -q 08_software/test_geometria_cad.py
 El generador crea archivos DXF R12 en milimetros para el rodete y la voluta,
 un CSV con la curva media del alabe, un JSON de parametros y un SVG de revision.
 
+## Calculo mecanico
+
+```bash
+python3 08_software/calculo_mecanico_sirocco.py
+python3 -m pytest -q 08_software/test_calculo_mecanico_sirocco.py
+```
+
+Incluye masa del rotor, carga de correas, reacciones, momento flector, diametro
+del eje, velocidad critica y capacidad dinamica minima de rodamientos.
+
 ## Limite del modelo
 
 El programa es un calculo unidimensional. El factor de deslizamiento, el

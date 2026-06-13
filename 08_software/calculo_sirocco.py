@@ -372,7 +372,7 @@ def imprimir_resumen(r: dict[str, Any]) -> None:
     print(f"Eficiencia estatica estimada: {pot['eficiencia_estatica_estimada']:.1%}")
     print(f"Salida voluta: {voluta['ancho_interior_m']:.2f} x {voluta['altura_salida_m']:.2f} m")
     print(f"Holgura de lengua: {voluta['holgura_lengua_m']*1000:.0f} mm")
-    print(f"Eje recomendado: {mec['diametro_eje_recomendado_mm']:.0f} mm")
+    print(f"Eje minimo por torsion: {mec['diametro_eje_recomendado_mm']:.0f} mm")
     print(f"Margen del motor: {pot['margen_motor_relativo']:.1%}")
 
 
