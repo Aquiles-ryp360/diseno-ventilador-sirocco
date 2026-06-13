@@ -50,16 +50,31 @@ FIGURAS = SALIDA / "figuras"
 PDF = SALIDA / "Informe_Diseno_Ventilador_Sirocco.pdf"
 MD = SALIDA / "Informe_Diseno_Ventilador_Sirocco.md"
 
+FONT_REGULAR = "Helvetica"
+FONT_BOLD = "Helvetica-Bold"
+
 
 def registrar_fuentes() -> None:
-    regular = Path("/usr/share/fonts/TTF/DejaVuSans.ttf")
-    bold = Path("/usr/share/fonts/TTF/DejaVuSans-Bold.ttf")
-    if regular.exists() and bold.exists():
-        pdfmetrics.registerFont(TTFont("DejaVu", str(regular)))
-        pdfmetrics.registerFont(TTFont("DejaVu-Bold", str(bold)))
-        pdfmetrics.registerFontFamily(
-            "DejaVu", normal="DejaVu", bold="DejaVu-Bold"
-        )
+    global FONT_REGULAR, FONT_BOLD
+    paths = [
+        ("/usr/share/fonts/TTF/DejaVuSans.ttf", "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf"),
+        ("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"),
+        ("C:\\Windows\\Fonts\\DejaVuSans.ttf", "C:\\Windows\\Fonts\\DejaVuSans-Bold.ttf"),
+        ("C:\\Windows\\Fonts\\arial.ttf", "C:\\Windows\\Fonts\\arialbd.ttf"),
+    ]
+    for r_path, b_path in paths:
+        if Path(r_path).exists() and Path(b_path).exists():
+            try:
+                pdfmetrics.registerFont(TTFont("DejaVu", str(r_path)))
+                pdfmetrics.registerFont(TTFont("DejaVu-Bold", str(b_path)))
+                pdfmetrics.registerFontFamily(
+                    "DejaVu", normal="DejaVu", bold="DejaVu-Bold"
+                )
+                FONT_REGULAR = "DejaVu"
+                FONT_BOLD = "DejaVu-Bold"
+                break
+            except Exception:
+                pass
 
 
 def estilos() -> dict[str, ParagraphStyle]:
@@ -68,7 +83,7 @@ def estilos() -> dict[str, ParagraphStyle]:
         "titulo": ParagraphStyle(
             "Titulo",
             parent=base["Title"],
-            fontName="DejaVu-Bold",
+            fontName=FONT_BOLD,
             fontSize=25,
             leading=30,
             textColor=BLANCO,
@@ -78,7 +93,7 @@ def estilos() -> dict[str, ParagraphStyle]:
         "subtitulo": ParagraphStyle(
             "Subtitulo",
             parent=base["Normal"],
-            fontName="DejaVu",
+            fontName=FONT_REGULAR,
             fontSize=12,
             leading=17,
             textColor=colors.HexColor("#BDEFFF"),
@@ -86,7 +101,7 @@ def estilos() -> dict[str, ParagraphStyle]:
         "h1": ParagraphStyle(
             "H1",
             parent=base["Heading1"],
-            fontName="DejaVu-Bold",
+            fontName=FONT_BOLD,
             fontSize=17,
             leading=21,
             textColor=AZUL,
@@ -95,7 +110,7 @@ def estilos() -> dict[str, ParagraphStyle]:
         "h2": ParagraphStyle(
             "H2",
             parent=base["Heading2"],
-            fontName="DejaVu-Bold",
+            fontName=FONT_BOLD,
             fontSize=11.5,
             leading=15,
             textColor=CIAN,
@@ -105,7 +120,7 @@ def estilos() -> dict[str, ParagraphStyle]:
         "body": ParagraphStyle(
             "Body",
             parent=base["BodyText"],
-            fontName="DejaVu",
+            fontName=FONT_REGULAR,
             fontSize=9.2,
             leading=13.4,
             textColor=colors.HexColor("#243540"),
@@ -115,7 +130,7 @@ def estilos() -> dict[str, ParagraphStyle]:
         "small": ParagraphStyle(
             "Small",
             parent=base["BodyText"],
-            fontName="DejaVu",
+            fontName=FONT_REGULAR,
             fontSize=7.5,
             leading=10,
             textColor=GRIS,
@@ -123,7 +138,7 @@ def estilos() -> dict[str, ParagraphStyle]:
         "caption": ParagraphStyle(
             "Caption",
             parent=base["BodyText"],
-            fontName="DejaVu",
+            fontName=FONT_REGULAR,
             fontSize=7.4,
             leading=10,
             textColor=GRIS,
@@ -134,7 +149,7 @@ def estilos() -> dict[str, ParagraphStyle]:
         "bullet": ParagraphStyle(
             "Bullet",
             parent=base["BodyText"],
-            fontName="DejaVu",
+            fontName=FONT_REGULAR,
             fontSize=9,
             leading=13,
             leftIndent=13,
@@ -146,7 +161,7 @@ def estilos() -> dict[str, ParagraphStyle]:
         "formula": ParagraphStyle(
             "Formula",
             parent=base["BodyText"],
-            fontName="DejaVu",
+            fontName=FONT_REGULAR,
             fontSize=9.3,
             leading=14,
             leftIndent=10,
@@ -160,7 +175,7 @@ def estilos() -> dict[str, ParagraphStyle]:
         "cover_info": ParagraphStyle(
             "CoverInfo",
             parent=base["Normal"],
-            fontName="DejaVu",
+            fontName=FONT_REGULAR,
             fontSize=9.4,
             leading=13.5,
             textColor=BLANCO,
@@ -195,10 +210,10 @@ def generar_graficos(aero: dict, mecanica: dict) -> None:
     fig.tight_layout()
     fig.savefig(ruta, dpi=180, bbox_inches="tight")
 
-    tabla = aero["voluta"]["tabla"]
-    theta = [x["angulo_grados"] for x in tabla]
-    area = [x["area_m2"] for x in tabla]
-    radio = [x["radio_exterior_m"] * 1000 for x in tabla]
+    tabla_data = aero["voluta"]["tabla"]
+    theta = [x["angulo_grados"] for x in tabla_data]
+    area = [x["area_m2"] for x in tabla_data]
+    radio = [x["radio_exterior_m"] * 1000 for x in tabla_data]
     fig, ax, ruta = grafico_base("ley_area_voluta.png")
     ax.plot(theta, area, marker="o", color="#00A6C8", linewidth=2.4, label="Área acumulada")
     ax.set_xlabel("Ángulo desde la lengua [°]")
@@ -253,7 +268,7 @@ def generar_graficos(aero: dict, mecanica: dict) -> None:
 def tabla(datos, anchos=None, encabezado=True, font_size=8.2) -> Table:
     t = Table(datos, colWidths=anchos, repeatRows=1 if encabezado else 0, hAlign="LEFT")
     comandos = [
-        ("FONTNAME", (0, 0), (-1, -1), "DejaVu"),
+        ("FONTNAME", (0, 0), (-1, -1), FONT_REGULAR),
         ("FONTSIZE", (0, 0), (-1, -1), font_size),
         ("LEADING", (0, 0), (-1, -1), font_size + 3),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
@@ -268,7 +283,7 @@ def tabla(datos, anchos=None, encabezado=True, font_size=8.2) -> Table:
         comandos += [
             ("BACKGROUND", (0, 0), (-1, 0), AZUL),
             ("TEXTCOLOR", (0, 0), (-1, 0), BLANCO),
-            ("FONTNAME", (0, 0), (-1, 0), "DejaVu-Bold"),
+            ("FONTNAME", (0, 0), (-1, 0), FONT_BOLD),
         ]
     t.setStyle(TableStyle(comandos))
     return t
@@ -292,11 +307,12 @@ def pie_pagina(canvas, doc) -> None:
     canvas.saveState()
     canvas.setStrokeColor(colors.HexColor("#C7D8E0"))
     canvas.line(18 * mm, 13 * mm, 192 * mm, 13 * mm)
-    canvas.setFont("DejaVu", 7.2)
+    canvas.setFont(FONT_REGULAR, 7.2)
     canvas.setFillColor(GRIS)
     canvas.drawString(18 * mm, 8.5 * mm, "Diseño preliminar de ventilador Sirocco · Revisión V1.2")
     canvas.drawRightString(192 * mm, 8.5 * mm, f"Página {doc.page}")
     canvas.restoreState()
+
 
 
 def portada(canvas, doc) -> None:

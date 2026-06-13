@@ -15,7 +15,6 @@ __pycache__/
 # Local transient files
 *.tmp
 *.bak
-.env
 
 # LaTeX auxiliary files
 *.aux
@@ -25,3 +24,4 @@ __pycache__/
 *.synctex.gz
 *.fls
 *.fdb_latexmk
+
