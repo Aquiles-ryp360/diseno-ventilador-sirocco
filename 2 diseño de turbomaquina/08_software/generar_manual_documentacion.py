@@ -7,25 +7,26 @@ import subprocess
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[1]
-SALIDA = ROOT / "11_documentacion"
+ROOT_DISENO = Path(__file__).resolve().parents[1]
+ROOT_REP = Path(__file__).resolve().parents[2]
+SALIDA = ROOT_DISENO / "11_documentacion"
 BASE = SALIDA / "Manual_Documentacion_Proyecto_Sirocco"
 
 DOCUMENTOS = [
-    ROOT / "00_gestion" / "DOCUMENTACION.md",
-    ROOT / "04_bibliografia" / "DOCUMENTACION.md",
-    ROOT / "05_avances" / "DOCUMENTACION.md",
-    ROOT / "06_calculos" / "DOCUMENTACION.md",
-    ROOT / "07_planos" / "DOCUMENTACION.md",
-    ROOT / "07_modelos_3d" / "DOCUMENTACION.md",
-    ROOT / "08_software" / "DOCUMENTACION.md",
-    ROOT / "09_reporte" / "DOCUMENTACION.md",
-    ROOT / "10_interfaz_3d" / "DOCUMENTACION.md",
-    ROOT / "1 artículo de investigación" / "DOCUMENTACION.md",
-    ROOT / "2 diseño de turbomaquina" / "DOCUMENTACION.md",
-    ROOT / "3 resolución de problemas" / "DOCUMENTACION.md",
-    ROOT / "documento_latex" / "DOCUMENTACION.md",
-    ROOT / "presentacion" / "DOCUMENTACION.md",
+    ROOT_DISENO / "00_gestion" / "DOCUMENTACION.md",
+    ROOT_DISENO / "04_bibliografia" / "DOCUMENTACION.md",
+    ROOT_DISENO / "05_avances" / "DOCUMENTACION.md",
+    ROOT_DISENO / "06_calculos" / "DOCUMENTACION.md",
+    ROOT_DISENO / "07_planos" / "DOCUMENTACION.md",
+    ROOT_DISENO / "07_modelos_3d" / "DOCUMENTACION.md",
+    ROOT_DISENO / "08_software" / "DOCUMENTACION.md",
+    ROOT_DISENO / "09_reporte" / "DOCUMENTACION.md",
+    ROOT_DISENO / "10_interfaz_3d" / "DOCUMENTACION.md",
+    ROOT_REP / "1 artículo de investigación" / "DOCUMENTACION.md",
+    ROOT_REP / "2 diseño de turbomaquina" / "DOCUMENTACION.md",
+    ROOT_REP / "3 resolución de problemas" / "DOCUMENTACION.md",
+    ROOT_DISENO / "documento_latex" / "DOCUMENTACION.md",
+    ROOT_DISENO / "presentacion" / "DOCUMENTACION.md",
 ]
 
 FIGURAS_POR_DOCUMENTO = {
@@ -128,7 +129,7 @@ def ensamblar_markdown() -> Path:
 
 
 def ejecutar(*args: str) -> None:
-    subprocess.run(args, cwd=ROOT, check=True)
+    subprocess.run(args, cwd=ROOT_DISENO, check=True)
 
 
 def main() -> None:
@@ -151,8 +152,17 @@ def main() -> None:
         "--output",
         str(html),
     )
+    chrome_path = "chromium"
+    for path in [
+        "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+    ]:
+        if Path(path).exists():
+            chrome_path = path
+            break
+
     ejecutar(
-        "chromium",
+        chrome_path,
         "--headless",
         "--no-sandbox",
         "--disable-dev-shm-usage",
