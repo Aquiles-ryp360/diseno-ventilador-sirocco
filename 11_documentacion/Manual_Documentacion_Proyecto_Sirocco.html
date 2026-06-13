@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Manual integral del proyecto Sirocco</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="manual.css" />
+</head>
+<body>
+<div class="cover">
+  <p class="cover-kicker">PROYECTO DE TURBOMÁQUINAS · GRUPO 2</p>
+  <h1>Manual integral del diseño del ventilador centrífugo Sirocco</h1>
+  <p class="cover-subtitle">Documentación por carpetas, ecuaciones, resultados, planos, modelo 3D, software e informe técnico</p>
+  <img src="../09_reporte/figuras/modelo_3d_assembly.png" alt="Modelo 3D del ventilador Sirocco">
+  <div class="cover-data">
+    <span>10 800 m³/h</span><span>882.6 Pa</span><span>1100 rpm</span><span>5.5 kW</span>
+  </div>
+  <p class="cover-school"><b>Universidad Nacional del Altiplano</b><br>
+  Curso: Turbomáquinas · Docente: Ing. Armando Cruz Cabrera<br><br>
+  Dilmar Humberto Siguayro Coila · Aquiles Taylor Ramos Yapo<br>
+  Renzo Gabriel Mamani Galindo · Martin Calla Quispe · Abel Yovani Rivera Quispe<br><br>
+  github.com/Aquiles-ryp360/diseno-ventilador-sirocco<br>
+  Puno, 2026 · Revisión V1.2</p>
+</div>
+
+<h1 id="guía-de-lectura">Guía de lectura</h1>
+<p>Este manual explica cada carpeta del repositorio y reúne las
+ecuaciones usadas en el predimensionamiento. La fuente vigente son los
+scripts Python, las memorias de <code>06_calculos/</code> y los
+resultados generados. El diseño todavía requiere CFD, análisis
+estructural, balanceo y ensayo antes de fabricar.</p>
+<h2 id="contenido">Contenido</h2>
+<ol type="1">
+<li>Gestión y planificación.</li>
+<li>Bibliografía y estado del arte.</li>
+<li>Avances académicos.</li>
+<li>Cálculos aerodinámicos y mecánicos.</li>
+<li>Planos y geometría CAD 2D.</li>
+<li>Modelos 3D.</li>
+<li>Software y pruebas.</li>
+<li>Informe y figuras.</li>
+<li>Interfaz gráfica offline.</li>
+<li>Documentos originales del curso.</li>
+<li>Informe LaTeX y presentación.</li>
+</ol>
+<h2 id="resultados-principales">Resultados principales</h2>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th style="text-align: right;">Selección vigente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Caudal</td>
+<td style="text-align: right;">3.0 m³/s = 10 800 m³/h</td>
+</tr>
+<tr>
+<td>Presión estática</td>
+<td style="text-align: right;">90 mmH₂O = 882.6 Pa</td>
+</tr>
+<tr>
+<td>Rodete</td>
+<td style="text-align: right;">D2 600 mm, D1 510 mm, ancho 230 mm</td>
+</tr>
+<tr>
+<td>Álabes</td>
+<td style="text-align: right;">48, curvados hacia adelante</td>
+</tr>
+<tr>
+<td>Velocidad</td>
+<td style="text-align: right;">1100 rpm</td>
+</tr>
+<tr>
+<td>Motor</td>
+<td style="text-align: right;">5.5 kW</td>
+</tr>
+<tr>
+<td>Eje preliminar</td>
+<td style="text-align: right;">35 mm</td>
+</tr>
+<tr>
+<td>Voluta</td>
+<td style="text-align: right;">ancho 280 mm, descarga 280 × 714 mm</td>
+</tr>
+</tbody>
+</table>
+<div class="page-break"></div>
+
+<h1 id="documentación-de-00_gestion">Documentación de
+<code>00_gestion</code></h1>
+<h2 id="propósito">Propósito</h2>
+<p>Esta carpeta conserva la organización inicial del proyecto:
+diagnóstico de los archivos recibidos, requisitos identificados,
+distribución de tareas y cronograma. No contiene resultados de
+ingeniería que deban usarse para fabricación.</p>
+<h2 id="archivos">Archivos</h2>
+<h3 id="diagnostico_carpetamd"><code>diagnostico_carpeta.md</code></h3>
+<p>Registra la revisión inicial del material del curso. Identifica el
+tema del Grupo 2, los entregables solicitados y la información que
+faltaba al comenzar. Sirve como evidencia de cómo se definió el
+alcance.</p>
+<h3
+id="plan_trabajo_cronogramamd"><code>plan_trabajo_cronograma.md</code></h3>
+<p>Organiza el proyecto en actividades: bibliografía, cálculo del
+rodete, voluta, pérdidas, software, semejanza, CAD, validación y
+presentación. La ruta crítica va desde el cierre del punto de diseño
+hasta la generación de geometría y la validación.</p>
+<h2 id="cómo-revisar-esta-carpeta">Cómo revisar esta carpeta</h2>
+<ol type="1">
+<li>Leer primero <code>diagnostico_carpeta.md</code> para conocer el
+origen del encargo.</li>
+<li>Comparar el cronograma con los entregables ya creados.</li>
+<li>Actualizar estados y responsables cuando el equipo programe CFD, FEA
+o ensayos.</li>
+</ol>
+<h2 id="relación-con-otras-carpetas">Relación con otras carpetas</h2>
+<ul>
+<li>Los requisitos originales se conservan en
+<code>2 diseño de turbomaquina/</code>.</li>
+<li>Los cálculos ejecutados están en <code>06_calculos/</code>.</li>
+<li>El software reproducible está en <code>08_software/</code>.</li>
+<li>La presentación final está en <code>09_reporte/</code> y
+<code>presentacion/</code>.</li>
+</ul>
+<h2 id="estado-actual">Estado actual</h2>
+<p>El predimensionamiento, CAD 2D, modelo conceptual 3D, interfaz e
+informe ya existen. Permanecen pendientes la simulación CFD, la
+verificación estructural, los detalles de fabricación y el ensayo del
+prototipo.</p>
+<div class="page-break"></div>
+
+<h1 id="documentación-de-04_bibliografia">Documentación de
+<code>04_bibliografia</code></h1>
+<h2 id="propósito-1">Propósito</h2>
+<p>Reunir las fuentes que sustentan el método de diseño y el trabajo
+futuro de validación. La bibliografía se concentra en ventiladores
+centrífugos multialabe, interacción rodete-voluta-lengua, CFD y
+optimización geométrica.</p>
+<h2 id="archivos-1">Archivos</h2>
+<h3
+id="bibliografia_inicialcsv"><code>bibliografia_inicial.csv</code></h3>
+<p>Base estructurada de artículos. Cada fila incluye tipo, título,
+autores, año, DOI, fuente, resumen metodológico y aplicación al
+proyecto. Actualmente contiene referencias de 2020 a 2026.</p>
+<p>Campos principales:</p>
+<ul>
+<li><code>doi</code>: identificador estable para localizar la
+publicación.</li>
+<li><code>resumen_metodologia_resultados</code>: qué hizo el artículo y
+qué reportó.</li>
+<li><code>aplicacion_al_proyecto</code>: por qué la fuente es relevante
+para el Sirocco.</li>
+</ul>
+<h3
+id="estado_del_arte_preliminarmd"><code>estado_del_arte_preliminar.md</code></h3>
+<p>Resume cinco líneas de investigación:</p>
+<ol type="1">
+<li>Interacción entre rodete, voluta y lengua.</li>
+<li>CFD para validar diseños unidimensionales.</li>
+<li>Optimización de ángulos, número de álabes y curvatura.</li>
+<li>Métodos DOE, Taguchi y ANOVA.</li>
+<li>Modelos a escala y prototipado.</li>
+</ol>
+<h2 id="cómo-usar-las-referencias">Cómo usar las referencias</h2>
+<ul>
+<li>Las leyes de semejanza deben apoyarse en documentación técnica
+AMCA.</li>
+<li>La holgura de la lengua y el análisis de fluctuaciones deben
+justificarse con estudios específicos de ventiladores de álabes hacia
+adelante.</li>
+<li>La metodología CFD puede tomar referencias de OpenFOAM o ANSYS-CFX,
+pero las condiciones de frontera deben adaptarse al modelo de este
+proyecto.</li>
+<li>No copiar resultados de eficiencia de otros ventiladores como si
+fueran resultados propios.</li>
+</ul>
+<h2 id="criterio-de-citación">Criterio de citación</h2>
+<p>Toda afirmación externa debe incluir autor, año y DOI o URL. Los
+valores calculados del proyecto deben citar el script o la memoria que
+los genera, no un artículo externo.</p>
+<h2 id="pendientes">Pendientes</h2>
+<ul>
+<li>Descargar y archivar las versiones permitidas de las fuentes
+principales.</li>
+<li>Completar lectura crítica y extraer geometrías comparables.</li>
+<li>Añadir normas de ensayo, seguridad, balanceo y selección de
+rodamientos.</li>
+</ul>
+<div class="page-break"></div>
+
+<h1 id="documentación-de-05_avances">Documentación de
+<code>05_avances</code></h1>
+<h2 id="propósito-2">Propósito</h2>
+<p>Conservar borradores y cortes parciales presentables durante el
+desarrollo. Estos archivos muestran la evolución del diseño, pero no
+sustituyen la memoria vigente de <code>06_calculos/</code>.</p>
+<h2 id="archivos-2">Archivos</h2>
+<h3
+id="articulo_investigacion_borradormd"><code>articulo_investigacion_borrador.md</code></h3>
+<p>Borrador académico con autores, resumen, introducción, objetivos,
+metodología, resultados preliminares, discusión, conclusiones y
+referencias. Es una base editable para el artículo del curso.</p>
+<h3
+id="avance_revision_docentemd"><code>avance_revision_docente.md</code></h3>
+<p>Resumen corto preparado para revisión docente. Presenta el punto de
+diseño, dimensiones seleccionadas y los cálculos principales de
+velocidad, presión y potencia.</p>
+<h2 id="ecuaciones-resumidas-en-los-avances">Ecuaciones resumidas en los
+avances</h2>
+<pre class="text"><code>Δp = H · 9.80665
+P_aire = Q · Δp
+U₂ = π D₂ n / 60
+C_m2 = Q / (π D₂ b k_b2)
+Δp_Euler = ρ U₂ C_u2
+P_eje = Q Δp_Euler / η_m</code></pre>
+<p>Los desarrollos completos, definición de variables y limitaciones
+están en <code>06_calculos/DOCUMENTACION.md</code>.</p>
+<h2 id="precaución-histórica">Precaución histórica</h2>
+<p>Si un avance contiene valores distintos, usar la revisión
+vigente:</p>
+<ul>
+<li><code>1100 rpm</code>, no el tanteo inicial de
+<code>1500 rpm</code>.</li>
+<li><code>D1 = 510 mm</code>, <code>D2 = 600 mm</code> y ancho
+<code>230 mm</code>.</li>
+<li>Eje mecánico preliminar de <code>35 mm</code>, no el mínimo
+torsional de <code>30 mm</code>.</li>
+</ul>
+<h2 id="uso-recomendado">Uso recomendado</h2>
+<p>Actualizar estos borradores solamente después de regenerar los
+resultados con los scripts. Para la exposición principal usar el PDF de
+<code>09_reporte/</code>.</p>
+<div class="page-break"></div>
+
+<h1 id="documentación-de-06_calculos">Documentación de
+<code>06_calculos</code></h1>
+<h2 id="propósito-3">Propósito</h2>
+<p>Esta carpeta contiene la memoria técnica del predimensionamiento
+aerodinámico y mecánico. Es la principal referencia para explicar qué se
+calculó, qué ecuaciones se usaron, qué resultados se obtuvieron y qué
+hipótesis todavía deben validarse.</p>
+<h2 id="punto-de-diseño-vigente">Punto de diseño vigente</h2>
+<table>
+<thead>
+<tr>
+<th>Magnitud</th>
+<th style="text-align: right;">Símbolo</th>
+<th style="text-align: right;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Caudal</td>
+<td style="text-align: right;"><code>Q</code></td>
+<td style="text-align: right;"><code>3.0 m³/s = 10 800 m³/h</code></td>
+</tr>
+<tr>
+<td>Altura de presión</td>
+<td style="text-align: right;"><code>H</code></td>
+<td style="text-align: right;"><code>90 mmH₂O</code></td>
+</tr>
+<tr>
+<td>Presión estática</td>
+<td style="text-align: right;"><code>Δp_s</code></td>
+<td style="text-align: right;"><code>882.6 Pa</code></td>
+</tr>
+<tr>
+<td>Densidad del aire</td>
+<td style="text-align: right;"><code>ρ</code></td>
+<td style="text-align: right;"><code>1.20 kg/m³</code></td>
+</tr>
+<tr>
+<td>Velocidad</td>
+<td style="text-align: right;"><code>n</code></td>
+<td style="text-align: right;"><code>1100 rpm</code></td>
+</tr>
+<tr>
+<td>Diámetro exterior</td>
+<td style="text-align: right;"><code>D2</code></td>
+<td style="text-align: right;"><code>0.600 m</code></td>
+</tr>
+<tr>
+<td>Diámetro de entrada</td>
+<td style="text-align: right;"><code>D1</code></td>
+<td style="text-align: right;"><code>0.510 m</code></td>
+</tr>
+<tr>
+<td>Ancho de rodete</td>
+<td style="text-align: right;"><code>b</code></td>
+<td style="text-align: right;"><code>0.230 m</code></td>
+</tr>
+<tr>
+<td>Número de álabes</td>
+<td style="text-align: right;"><code>Z</code></td>
+<td style="text-align: right;"><code>48</code></td>
+</tr>
+<tr>
+<td>Espesor de álabe</td>
+<td style="text-align: right;"><code>t</code></td>
+<td style="text-align: right;"><code>1.2 mm</code></td>
+</tr>
+<tr>
+<td>Ángulo de salida</td>
+<td style="text-align: right;"><code>β2</code></td>
+<td style="text-align: right;"><code>125°</code> desde la tangente</td>
+</tr>
+</tbody>
+</table>
+<h2 id="archivos-principales">Archivos principales</h2>
+<h3
+id="memoria_calculo_sirocco_v1md"><code>memoria_calculo_sirocco_v1.md</code></h3>
+<p>Memoria aerodinámica vigente. Explica selección de doble entrada,
+triángulos de velocidad, presión de Euler, potencia, voluta, pérdidas,
+semejanza y geometría del álabe.</p>
+<h3
+id="memoria_mecanica_sirocco_v1md"><code>memoria_mecanica_sirocco_v1.md</code></h3>
+<p>Memoria mecánica vigente. Explica masa, carga de correa, reacciones,
+flexión, diámetro del eje, velocidad crítica y capacidad de
+rodamientos.</p>
+<h3
+id="diseno_preliminar_siroccomd"><code>diseno_preliminar_sirocco.md</code></h3>
+<p>Primer tanteo histórico. Contiene una propuesta a
+<code>1500 rpm</code> que fue descartada al cerrar potencia y presión.
+No debe usarse como selección final.</p>
+<h2 id="1-conversión-de-presión">1. Conversión de presión</h2>
+<p>La altura en milímetros de agua se convierte a presión mediante:</p>
+<pre class="text"><code>Δp_s = H · 9.80665
+Δp_s = 90 · 9.80665 = 882.5985 Pa</code></pre>
+<p>El factor <code>9.80665</code> convierte <code>mmH₂O</code> a
+pascales bajo gravedad estándar.</p>
+<h2 id="2-potencia-útil-del-aire">2. Potencia útil del aire</h2>
+<pre class="text"><code>P_aire = Q · Δp_s
+P_aire = 3.0 · 882.5985 = 2647.8 W = 2.648 kW</code></pre>
+<p>Esta es la potencia útil entregada al aire. No incluye pérdidas
+aerodinámicas, mecánicas ni de transmisión.</p>
+<h2 id="3-área-y-velocidad-en-los-ojos-de-entrada">3. Área y velocidad
+en los ojos de entrada</h2>
+<p>El rodete es de doble entrada. El área total de los dos ojos,
+descontando el cubo, se calcula como:</p>
+<pre class="text"><code>A_ojos = N_e · (π/4) · (D1² - D_cubo²)
+V_ojos = Q / A_ojos</code></pre>
+<p>Con <code>N_e = 2</code> y <code>D_cubo = 0.12 m</code>:</p>
+<pre class="text"><code>A_ojos = 0.3859 m²
+V_ojos = 7.77 m/s</code></pre>
+<h2 id="4-velocidad-periférica">4. Velocidad periférica</h2>
+<p>Para cualquier radio de cálculo:</p>
+<pre class="text"><code>U = π D n / 60</code></pre>
+<p>Resultados:</p>
+<pre class="text"><code>U1 = π · 0.510 · 1100 / 60 = 29.37 m/s
+U2 = π · 0.600 · 1100 / 60 = 34.56 m/s</code></pre>
+<h2 id="5-factor-de-bloqueo-por-espesor">5. Factor de bloqueo por
+espesor</h2>
+<p>Los álabes ocupan parte del paso circunferencial. La fracción abierta
+se estima mediante:</p>
+<pre class="text"><code>k_b = 1 - Z t / (π D sin β)</code></pre>
+<p>Donde <code>β</code> se mide desde la tangente. Resultados:</p>
+<ul>
+<li>Entrada: <code>k_b1 = 0.880</code>.</li>
+<li>Salida: <code>k_b2 = 0.963</code>.</li>
+</ul>
+<p>Esta corrección es geométrica y no representa por sí sola la capa
+límite ni la estela real del álabe.</p>
+<h2 id="6-velocidad-meridional">6. Velocidad meridional</h2>
+<pre class="text"><code>C_m = Q / (π D b k_b)</code></pre>
+<p>Resultados:</p>
+<pre class="text"><code>C_m1 = 9.25 m/s
+C_m2 = 7.19 m/s</code></pre>
+<h2 id="7-ángulo-de-entrada-sin-incidencia">7. Ángulo de entrada sin
+incidencia</h2>
+<p>Se supone que el aire entra sin componente tangencial apreciable. El
+ángulo de entrada se obtiene de:</p>
+<pre class="text"><code>β1 = atan(C_m1 / U1)</code></pre>
+<p>Como <code>C_m1</code> depende de <code>k_b1</code> y
+<code>k_b1</code> depende de <code>β1</code>, la ecuación se resuelve
+iterativamente. El resultado es:</p>
+<pre class="text"><code>β1 = 17.48°</code></pre>
+<p>Para geometría CAD se redondea a <code>17.5°</code> o
+<code>18°</code> según el nivel de detalle.</p>
+<h2 id="8-factor-de-deslizamiento-de-wiesner">8. Factor de deslizamiento
+de Wiesner</h2>
+<p>La componente tangencial real se reduce por el número finito de
+álabes. Se usa la estimación:</p>
+<pre class="text"><code>σ = 1 - sqrt(sin β2) / Z^0.7
+σ = 0.940</code></pre>
+<p>Su aplicación a un rodete Sirocco es una aproximación que debe
+contrastarse con CFD o ensayo.</p>
+<h2 id="9-componente-tangencial-de-salida">9. Componente tangencial de
+salida</h2>
+<pre class="text"><code>C_u2 = σ U2 - C_m2 / tan β2</code></pre>
+<p>Con álabes curvados hacia adelante y <code>β2 = 125°</code>:</p>
+<pre class="text"><code>C_u2 = 37.51 m/s</code></pre>
+<h2 id="10-ecuación-de-euler">10. Ecuación de Euler</h2>
+<p>La presión teórica transferida por el rodete se estima mediante:</p>
+<pre class="text"><code>Δp_E = ρ (U2 C_u2 - U1 C_u1)</code></pre>
+<p>Suponiendo <code>C_u1 ≈ 0</code>:</p>
+<pre class="text"><code>Δp_E = ρ U2 C_u2
+Δp_E = 1.2 · 34.56 · 37.51 = 1555.5 Pa</code></pre>
+<p>La diferencia entre <code>1555.5 Pa</code> y la presión estática
+requerida de <code>882.6 Pa</code> se interpreta como energía cinética y
+pérdidas internas del sistema.</p>
+<h2 id="11-coeficientes-adimensionales">11. Coeficientes
+adimensionales</h2>
+<pre class="text"><code>φ = C_m2 / U2 = 0.208
+ψ_s = Δp_s / (ρ U2²) = 0.616</code></pre>
+<p>Estos coeficientes permiten comparar el punto con otras geometrías y
+aplicar criterios de semejanza.</p>
+<h2 id="12-potencia-de-euler-potencia-al-eje-y-eficiencia">12. Potencia
+de Euler, potencia al eje y eficiencia</h2>
+<pre class="text"><code>P_Euler = Q · Δp_E = 4.666 kW
+P_eje = P_Euler / η_m
+P_eje = 4.666 / 0.96 = 4.861 kW
+η_estática = P_aire / P_eje = 54.5 %</code></pre>
+<p>Se selecciona un motor de <code>5.5 kW</code>:</p>
+<pre class="text"><code>Margen = P_motor / P_eje - 1 = 13.1 %</code></pre>
+<h2 id="13-razón-para-descartar-1500-rpm">13. Razón para descartar 1500
+rpm</h2>
+<p>Al aumentar la velocidad, la presión crece aproximadamente con
+<code>n²</code> y la potencia con <code>n³</code>. El cálculo directo a
+<code>1500 rpm</code> entrega más de <code>8 kW</code> al eje, superando
+el motor de <code>5.5 kW</code>. Por eso la revisión vigente usa
+<code>1100 rpm</code>.</p>
+<h2 id="14-voluta-y-descarga">14. Voluta y descarga</h2>
+<p>El área de salida se fija con la velocidad deseada:</p>
+<pre class="text"><code>A_salida = Q / V_salida
+A_salida = 3 / 15 = 0.200 m²</code></pre>
+<p>Con ancho interior <code>B = 0.280 m</code>:</p>
+<pre class="text"><code>h_salida = A_salida / B
+h_salida = 0.200 / 0.280 = 0.714 m</code></pre>
+<p>La descarga preliminar es <code>280 × 714 mm</code>.</p>
+<h2 id="15-ley-de-área-de-la-voluta">15. Ley de área de la voluta</h2>
+<p>El caudal acumulado se aproxima linealmente con el ángulo:</p>
+<pre class="text"><code>A(θ) = A_salida · θ / 360°</code></pre>
+<p>La holgura de lengua es:</p>
+<pre class="text"><code>g = 0.08 D2 = 0.048 m</code></pre>
+<p>El radio exterior se obtiene de:</p>
+<pre class="text"><code>R_ext(θ) = D2/2 + g + A(θ)/B</code></pre>
+<p>Por ello el radio crece desde <code>0.348 m</code> en la lengua hasta
+<code>1.062 m</code> al completar la espiral.</p>
+<h2 id="16-presupuesto-de-pérdidas">16. Presupuesto de pérdidas</h2>
+<p>La diferencia de presión es:</p>
+<pre class="text"><code>Δp_pérdidas = Δp_E - Δp_s = 672.9 Pa</code></pre>
+<p>Distribución preliminar:</p>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th style="text-align: right;">Pérdida</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entrada y bellmouth</td>
+<td style="text-align: right;"><code>7.3 Pa</code></td>
+</tr>
+<tr>
+<td>Pasajes, estela y separación</td>
+<td style="text-align: right;"><code>238.8 Pa</code></td>
+</tr>
+<tr>
+<td>Recirculación y fugas</td>
+<td style="text-align: right;"><code>106.1 Pa</code></td>
+</tr>
+<tr>
+<td>Voluta y lengua</td>
+<td style="text-align: right;"><code>132.7 Pa</code></td>
+</tr>
+<tr>
+<td>Margen del modelo 1D</td>
+<td style="text-align: right;"><code>53.1 Pa</code></td>
+</tr>
+<tr>
+<td>Energía cinética de descarga</td>
+<td style="text-align: right;"><code>135.0 Pa</code></td>
+</tr>
+</tbody>
+</table>
+<p>Las pérdidas de entrada y descarga usan presión dinámica:</p>
+<pre class="text"><code>q_d = 0.5 ρ V²</code></pre>
+<p>El resto es un reparto de ingeniería para orientar la simulación, no
+una medición experimental.</p>
+<h2 id="17-torque-del-eje">17. Torque del eje</h2>
+<pre class="text"><code>ω = 2πn / 60
+T = P_eje / ω = 42.20 N·m</code></pre>
+<p>Para el tanteo torsional se usa factor de servicio
+<code>K_s = 1.5</code>:</p>
+<pre class="text"><code>T_d = K_s T = 63.30 N·m
+d_t = [16 T_d / (π τ_adm)]^(1/3)</code></pre>
+<p>Con <code>τ_adm = 30 MPa</code>, el diámetro matemático es
+<code>22.1 mm</code>. El redondeo torsional inicial a <code>30 mm</code>
+no es la selección mecánica final.</p>
+<h2 id="18-masa-del-rotor">18. Masa del rotor</h2>
+<p>Cada masa se calcula como:</p>
+<pre class="text"><code>m = ρ_acero · volumen</code></pre>
+<p>Se suman álabes, dos anillos, disco central y cubo. Luego se aplica
+<code>8 %</code> por soldaduras y refuerzos:</p>
+<pre class="text"><code>m_rotor = 18.63 kg
+W_rotor = m_rotor g ≈ 182.7 N</code></pre>
+<h2 id="19-carga-radial-de-la-correa">19. Carga radial de la correa</h2>
+<p>Para una polea de diámetro <code>D_p = 0.20 m</code>:</p>
+<pre class="text"><code>F_t = 2T / D_p = 422 N
+F_correa = 2.5 F_t = 1055 N</code></pre>
+<p>El factor <code>2.5</code> representa la relación preliminar entre
+carga radial total y fuerza tangencial transmitida.</p>
+<h2 id="20-reacciones-y-momento-flector">20. Reacciones y momento
+flector</h2>
+<p>Con apoyos separados por <code>L = 0.50 m</code>, rodete centrado en
+<code>x_r = 0.25 m</code> y polea en <code>x_p = 0.575 m</code>:</p>
+<pre class="text"><code>R_B = (W_rotor x_r + F_correa x_p) / L
+R_A = W_rotor + F_correa - R_B</code></pre>
+<p>El diagrama de momentos se obtiene sumando las contribuciones de cada
+reacción y carga según la posición. El máximo calculado es
+<code>79.0 N·m</code> junto al apoyo de la polea.</p>
+<h2 id="21-diámetro-mecánico-del-eje">21. Diámetro mecánico del eje</h2>
+<p>Se usa un momento equivalente tipo ASME:</p>
+<pre class="text"><code>M_eq = sqrt[(K_b M_max)² + (K_t T)²]
+d = [16 M_eq / (π τ_adm)]^(1/3)</code></pre>
+<p>Con <code>K_b = K_t = 1.5</code> se obtiene aproximadamente
+<code>28.4 mm</code>. Aplicando un factor de <code>1.20</code> por
+chavetero y concentración de esfuerzos:</p>
+<pre class="text"><code>d_corregido ≈ 34.1 mm
+d_adoptado = 35 mm</code></pre>
+<h2 id="22-flecha-y-primera-velocidad-crítica">22. Flecha y primera
+velocidad crítica</h2>
+<p>Para una carga central simplificada:</p>
+<pre class="text"><code>I = π d⁴ / 64
+δ = W_rotor L³ / (48 E I)
+n_cr = (30/π) sqrt(g/δ)</code></pre>
+<p>Con <code>E = 200 GPa</code> y eje de <code>35 mm</code>:</p>
+<pre class="text"><code>δ ≈ 0.032 mm
+n_cr ≈ 5260 rpm
+n_cr / n_operación ≈ 4.8</code></pre>
+<p>La verificación final debe incluir masa distribuida, polea, rigidez
+de soportes y efectos giroscópicos.</p>
+<h2 id="23-vida-y-capacidad-del-rodamiento">23. Vida y capacidad del
+rodamiento</h2>
+<p>Para rodamientos de bolas se usa el exponente <code>p = 3</code>:</p>
+<pre class="text"><code>L_10 = (C/P)^3 · 10⁶ revoluciones
+C = P · (60 n L_h / 10⁶)^(1/3)</code></pre>
+<p>Con vida objetivo de <code>20 000 h</code>, la capacidad dinámica
+mínima calculada es <code>14.3 kN</code>. La memoria recomienda
+seleccionar <code>C ≥ 20 kN</code> como margen inicial.</p>
+<h2 id="24-fuerza-centrífuga-de-un-álabe">24. Fuerza centrífuga de un
+álabe</h2>
+<pre class="text"><code>F_c = m_álabe · ω² · r_medio</code></pre>
+<p>El resultado preliminar es aproximadamente <code>437 N</code> por
+álabe. Las uniones soldadas todavía requieren FEA y verificación de
+fatiga.</p>
+<h2 id="25-leyes-de-semejanza">25. Leyes de semejanza</h2>
+<p>Para dos ventiladores geométricamente semejantes:</p>
+<pre class="text"><code>Q₂/Q₁ = (n₂/n₁)(D₂/D₁)³
+Δp₂/Δp₁ = (n₂/n₁)²(D₂/D₁)²
+P₂/P₁ = (n₂/n₁)³(D₂/D₁)⁵</code></pre>
+<p>Para escala <code>λ = 0.5</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Condición</th>
+<th style="text-align: right;">rpm</th>
+<th style="text-align: right;">Caudal</th>
+<th style="text-align: right;">Presión</th>
+<th style="text-align: right;">Potencia eje</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Misma rpm</td>
+<td style="text-align: right;"><code>1100</code></td>
+<td style="text-align: right;"><code>0.375 m³/s</code></td>
+<td style="text-align: right;"><code>220.6 Pa</code></td>
+<td style="text-align: right;"><code>0.152 kW</code></td>
+</tr>
+<tr>
+<td>Misma velocidad periférica</td>
+<td style="text-align: right;"><code>2200</code></td>
+<td style="text-align: right;"><code>0.750 m³/s</code></td>
+<td style="text-align: right;"><code>882.6 Pa</code></td>
+<td style="text-align: right;"><code>1.215 kW</code></td>
+</tr>
+</tbody>
+</table>
+<p>Debe revisarse también el número de Reynolds y las holguras
+relativas.</p>
+<h2 id="resultados-generados">Resultados generados</h2>
+<h3 id="resultados_v1"><code>resultados_v1/</code></h3>
+<ul>
+<li><code>resultado_completo.json</code>: todos los resultados
+aerodinámicos.</li>
+<li><code>resumen_diseno.csv</code>: 29 variables resumidas.</li>
+<li><code>tabla_voluta.csv</code>: 9 estaciones angulares.</li>
+<li><code>presupuesto_perdidas.csv</code>: 6 componentes de
+pérdida.</li>
+<li><code>semejanza_modelo.csv</code>: 2 condiciones a escala 1:2.</li>
+<li><code>esquema_dimensional_sirocco.svg</code>: esquema visual.</li>
+</ul>
+<h3
+id="resultados_mecanicos_v1"><code>resultados_mecanicos_v1/</code></h3>
+<ul>
+<li><code>resultado_mecanico_v1.json</code>: masas, cargas, eje y
+rodamientos.</li>
+</ul>
+<h2 id="regeneración">Regeneración</h2>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/calculo_sirocco.py <span class="dt">\</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--exportar</span> 06_calculos/resultados_v1</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/calculo_mecanico_sirocco.py <span class="dt">\</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--salida</span> 06_calculos/resultados_mecanicos_v1</span></code></pre></div>
+<h2 id="limitaciones">Limitaciones</h2>
+<ul>
+<li>Modelo aerodinámico unidimensional.</li>
+<li>Factor de deslizamiento no calibrado para este rodete.</li>
+<li>Presupuesto de pérdidas asignado, no medido.</li>
+<li>Voluta de ley lineal sin optimización de lengua.</li>
+<li>Eje representado como viga simplificada.</li>
+<li>Sin FEA de álabes, disco, cubo o soldaduras.</li>
+<li>Sin curvas experimentales <code>Q-Δp</code>, potencia, eficiencia,
+ruido o vibración.</li>
+</ul>
+<div class="figure">
+<img src="../09_reporte/figuras/perdidas_presion.png" alt="Presupuesto unidimensional de pérdidas.">
+<p>Presupuesto unidimensional de pérdidas.</p>
+</div>
+
+<div class="figure">
+<img src="../09_reporte/figuras/ley_area_voluta.png" alt="Crecimiento del área y radio de la voluta.">
+<p>Crecimiento del área y radio de la voluta.</p>
+</div>
+
+<div class="figure">
+<img src="../09_reporte/figuras/leyes_afinidad.png" alt="Leyes de afinidad a diámetro constante.">
+<p>Leyes de afinidad a diámetro constante.</p>
+</div>
+
+<div class="figure">
+<img src="../09_reporte/figuras/momento_flector.png" alt="Momento flector preliminar del eje.">
+<p>Momento flector preliminar del eje.</p>
+</div>
+
+<div class="page-break"></div>
+
+<h1 id="documentación-de-07_planos">Documentación de
+<code>07_planos</code></h1>
+<h2 id="propósito-4">Propósito</h2>
+<p>Contener la geometría bidimensional generada a partir del cálculo
+vigente. Los archivos permiten revisar el perfil del álabe, la
+repetición de los 48 álabes y la espiral preliminar de la voluta en
+programas CAD.</p>
+<h2 id="sistema-de-unidades-y-coordenadas">Sistema de unidades y
+coordenadas</h2>
+<ul>
+<li>Los archivos DXF usan milímetros.</li>
+<li>El eje del rodete está en <code>(0, 0)</code>.</li>
+<li>La geometría se dibuja en el plano <code>XY</code>.</li>
+<li>El eje axial y el ancho del rodete se incorporan posteriormente en
+3D.</li>
+</ul>
+<h2 id="archivos-3">Archivos</h2>
+<h3 id="rodete_sirocco_v1dxf"><code>rodete_sirocco_v1.dxf</code></h3>
+<p>DXF ASCII R12 con:</p>
+<ul>
+<li>Círculo de referencia <code>D2 = 600 mm</code>.</li>
+<li>Círculo de entrada <code>D1 = 510 mm</code>.</li>
+<li>Círculo de cubo de referencia.</li>
+<li>48 contornos cerrados de álabe.</li>
+</ul>
+<p>Capas principales: <code>D2_REFERENCIA</code>,
+<code>D1_REFERENCIA</code>, <code>CUBO_REFERENCIA</code> y
+<code>ALABES</code>.</p>
+<h3 id="voluta_sirocco_v1dxf"><code>voluta_sirocco_v1.dxf</code></h3>
+<p>Incluye el círculo de referencia del rodete, la polilínea exterior de
+la voluta y las tres líneas de la descarga.</p>
+<h3 id="perfil_alabe_v1csv"><code>perfil_alabe_v1.csv</code></h3>
+<p>Contiene 81 estaciones de la línea media del álabe: índice,
+<code>x</code>, <code>y</code>, radio global y ángulo polar.</p>
+<h3
+id="parametros_geometria_v1json"><code>parametros_geometria_v1.json</code></h3>
+<p>Parámetros exactos del arco circular:</p>
+<ul>
+<li>Radio de curvatura: <code>30.07 mm</code>.</li>
+<li>Centro: <code>(283.68, 9.04) mm</code>.</li>
+<li>Desfase polar de salida: <code>-3.15°</code>.</li>
+<li>Ángulos: <code>β1 = 17.5°</code>, <code>β2 = 125°</code>.</li>
+</ul>
+<h3 id="archivos-svg">Archivos SVG</h3>
+<ul>
+<li><code>geometria_cad_v1.svg</code>: revisión visual del rodete y la
+voluta.</li>
+<li><code>esquema_dimensional_sirocco.svg</code>: dimensiones
+globales.</li>
+</ul>
+<h2 id="construcción-del-álabe">Construcción del álabe</h2>
+<p>Se busca un arco circular que pase por los radios:</p>
+<pre class="text"><code>r1 = D1/2 = 255 mm
+r2 = D2/2 = 300 mm</code></pre>
+<p>y que tenga tangentes compatibles con <code>β1</code> y
+<code>β2</code>. El generador resuelve el desfase angular <code>δ</code>
+imponiendo que el desplazamiento entre extremos y la diferencia de
+normales sean colineales:</p>
+<pre class="text"><code>cross(P2 - P1, n1 - n2) = 0</code></pre>
+<p>Después calcula el radio de curvatura y el centro. Los puntos del
+arco son:</p>
+<pre class="text"><code>x(φ) = x_c + R_c cos φ
+y(φ) = y_c + R_c sin φ</code></pre>
+<p>El contorno se obtiene con dos arcos concéntricos:</p>
+<pre class="text"><code>R_exterior = R_c + t/2
+R_interior = R_c - t/2</code></pre>
+<p>con <code>t = 1.2 mm</code>.</p>
+<h2 id="repetición-circunferencial">Repetición circunferencial</h2>
+<p>Cada punto del álabe base se rota para <code>i = 0 ... 47</code>:</p>
+<pre class="text"><code>α_i = 2π i / Z
+x&#39; = x cos α_i - y sin α_i
+y&#39; = x sin α_i + y cos α_i</code></pre>
+<h2 id="construcción-de-la-voluta">Construcción de la voluta</h2>
+<pre class="text"><code>A_salida = Q / V_salida
+A(θ) = A_salida θ / 360°
+R_ext(θ) = D2/2 + g + A(θ)/B
+x = R_ext cos θ
+y = R_ext sin θ</code></pre>
+<p>El perfil DXF usa una estación cada <code>2°</code>.</p>
+<h2 id="regeneración-1">Regeneración</h2>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/generar_geometria_cad.py <span class="at">--salida</span> 07_planos</span></code></pre></div>
+<h2 id="programas-para-abrir-los-archivos">Programas para abrir los
+archivos</h2>
+<ul>
+<li>FreeCAD.</li>
+<li>LibreCAD.</li>
+<li>AutoCAD.</li>
+<li>SolidWorks mediante importación DXF.</li>
+<li>Navegador web para los SVG.</li>
+<li>Hoja de cálculo para el CSV.</li>
+</ul>
+<h2 id="límites-de-uso">Límites de uso</h2>
+<p>Estos archivos son geometría conceptual. No incluyen tolerancias,
+dobleces, radios de soldadura, espesores de carcasa, agujeros, chaveta,
+pernos, guardas, acabados ni especificaciones de balanceo.</p>
+<div class="figure">
+<img src="../09_reporte/figuras/geometria_cad_2d.png" alt="Geometría CAD 2D del rodete y la voluta.">
+<p>Geometría CAD 2D del rodete y la voluta.</p>
+</div>
+
+<div class="page-break"></div>
+
+<h1 id="documentación-de-07_modelos_3d">Documentación de
+<code>07_modelos_3d</code></h1>
+<h2 id="propósito-5">Propósito</h2>
+<p>Contener los modelos conceptuales tridimensionales generados a partir
+de las mismas dimensiones usadas en los cálculos y planos 2D.</p>
+<h2 id="archivos-obj">Archivos OBJ</h2>
+<table>
+<thead>
+<tr>
+<th>Archivo</th>
+<th style="text-align: right;">Vértices</th>
+<th style="text-align: right;">Caras</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rodete_sirocco_v1_2.obj</code></td>
+<td style="text-align: right;"><code>11 570</code></td>
+<td style="text-align: right;"><code>16 248</code></td>
+<td>Álabes, anillos, disco, cubo, eje y polea</td>
+</tr>
+<tr>
+<td><code>voluta_sirocco_v1_2.obj</code></td>
+<td style="text-align: right;"><code>732</code></td>
+<td style="text-align: right;"><code>726</code></td>
+<td>Pasaje espiral y descarga</td>
+</tr>
+<tr>
+<td><code>conjunto_sirocco_v1_2.obj</code></td>
+<td style="text-align: right;"><code>12 302</code></td>
+<td style="text-align: right;"><code>16 974</code></td>
+<td>Rodete y voluta combinados</td>
+</tr>
+</tbody>
+</table>
+<p>Las unidades declaradas en los encabezados son milímetros.</p>
+<h2 id="archivos-auxiliares">Archivos auxiliares</h2>
+<ul>
+<li><code>materiales_sirocco.mtl</code>: materiales y colores para
+visores OBJ.</li>
+<li><code>modelo_sirocco_v1_2.json</code>: dimensiones, operación y
+coordenadas.</li>
+<li><code>modelo_sirocco_v1_2.js</code>: mismos datos asignados a
+<code>window.SIROCCO_DATA</code> para abrir la interfaz sin
+servidor.</li>
+</ul>
+<h2 id="cómo-se-genera-la-malla">Cómo se genera la malla</h2>
+<h3 id="álabes">Álabes</h3>
+<p>El contorno 2D de cada álabe se extruye entre:</p>
+<pre class="text"><code>z0 = -b/2 = -115 mm
+z1 = +b/2 = +115 mm</code></pre>
+<p>Cada lado del polígono produce una cara lateral y las tapas se
+triangulan desde un centro geométrico. El álabe se repite 48 veces
+mediante rotación.</p>
+<h3 id="anillos-cubo-eje-y-polea">Anillos, cubo, eje y polea</h3>
+<p>Se crean con cilindros sólidos o anulares discretizados en segmentos.
+El disco central es un cilindro delgado y el eje usa el diámetro
+mecánico de <code>35 mm</code>.</p>
+<h3 id="voluta">Voluta</h3>
+<p>Para cada estación angular se crean un radio interior fijo y un radio
+exterior creciente:</p>
+<pre class="text"><code>r_in = D2/2 + g
+r_ext(i) = D2/2 + g + A_salida(i/N)/B</code></pre>
+<p>Las estaciones de ambas caras axiales se conectan con
+cuadriláteros.</p>
+<h2 id="cómo-abrir-los-obj">Cómo abrir los OBJ</h2>
+<ul>
+<li>Blender: <code>File &gt; Import &gt; Wavefront (.obj)</code>.</li>
+<li>FreeCAD: <code>Archivo &gt; Abrir</code> o importación de
+malla.</li>
+<li>MeshLab y visores OBJ compatibles.</li>
+<li>Interfaz incluida en <code>10_interfaz_3d/</code> para inspección
+directa.</li>
+</ul>
+<p>Al importar, conservar unidades en milímetros y mantener el archivo
+MTL junto a los OBJ para recuperar materiales.</p>
+<h2 id="regeneración-2">Regeneración</h2>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/generar_modelo_3d.py <span class="at">--salida</span> 07_modelos_3d</span></code></pre></div>
+<h2 id="alcance">Alcance</h2>
+<p>Las mallas muestran la arquitectura y proporciones. No son sólidos
+paramétricos de fabricación y no contienen tolerancias, soldaduras,
+tornillos, espesor definitivo de carcasa ni detalles completos de
+rodamientos.</p>
+<div class="figure">
+<img src="../09_reporte/figuras/modelo_3d_rotor.png" alt="Rodete de doble entrada, eje y polea.">
+<p>Rodete de doble entrada, eje y polea.</p>
+</div>
+
+<div class="figure">
+<img src="../09_reporte/figuras/modelo_3d_assembly.png" alt="Conjunto conceptual con carcasa espiral.">
+<p>Conjunto conceptual con carcasa espiral.</p>
+</div>
+
+<div class="page-break"></div>
+
+<h1 id="documentación-de-08_software">Documentación de
+<code>08_software</code></h1>
+<h2 id="propósito-6">Propósito</h2>
+<p>Esta carpeta convierte el diseño en un proceso reproducible. Los
+scripts calculan el punto aerodinámico y mecánico, generan geometría CAD
+y 3D, producen el informe PDF y verifican resultados mediante pruebas
+automáticas.</p>
+<h2 id="requisitos">Requisitos</h2>
+<ul>
+<li>Python 3.10 o superior.</li>
+<li>Biblioteca estándar para los cálculos, CSV, JSON, DXF y OBJ.</li>
+<li><code>pytest</code> para pruebas.</li>
+<li><code>matplotlib</code>, <code>numpy</code> y <code>reportlab</code>
+para generar el informe PDF.</li>
+</ul>
+<h2 id="scripts">Scripts</h2>
+<h3 id="calculo_siroccopy"><code>calculo_sirocco.py</code></h3>
+<p>Responsable del cálculo aerodinámico unidimensional.</p>
+<p>Funciones importantes:</p>
+<ul>
+<li><code>factor_bloqueo()</code>: fracción abierta del paso.</li>
+<li><code>resolver_entrada_sin_incidencia()</code>: iteración de
+<code>β1</code>.</li>
+<li><code>factor_deslizamiento_wiesner()</code>: corrección de
+salida.</li>
+<li><code>tabla_voluta()</code>: ley de área y radio exterior.</li>
+<li><code>semejanza()</code>: modelo a escala.</li>
+<li><code>calcular()</code>: reúne presión, potencia, pérdidas, voluta y
+torsión.</li>
+<li><code>exportar()</code>: crea CSV, JSON y SVG.</li>
+</ul>
+<p>Uso:</p>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/calculo_sirocco.py</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/calculo_sirocco.py <span class="at">--json</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/calculo_sirocco.py <span class="at">--caudal</span> 3 <span class="at">--presion</span> 90 <span class="at">--rpm</span> 1100</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/calculo_sirocco.py <span class="dt">\</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--exportar</span> 06_calculos/resultados_v1</span></code></pre></div>
+<h3
+id="calculo_mecanico_siroccopy"><code>calculo_mecanico_sirocco.py</code></h3>
+<p>Calcula volumen y masa de piezas, torque, carga radial de correa,
+reacciones, momento flector, diámetro ASME, flecha, velocidad crítica y
+capacidad dinámica de rodamientos.</p>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/calculo_mecanico_sirocco.py</span></code></pre></div>
+<h3
+id="generar_geometria_cadpy"><code>generar_geometria_cad.py</code></h3>
+<p>Resuelve un arco circular compatible con <code>D1</code>,
+<code>D2</code>, <code>β1</code> y <code>β2</code>; genera 48 contornos
+de álabe, la espiral de voluta y exporta DXF R12, CSV, JSON y SVG.</p>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/generar_geometria_cad.py <span class="at">--salida</span> 07_planos</span></code></pre></div>
+<h3 id="generar_modelo_3dpy"><code>generar_modelo_3d.py</code></h3>
+<p>Extruye los contornos 2D, crea cilindros y la malla de voluta, y
+exporta OBJ, MTL, JSON y JavaScript.</p>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/generar_modelo_3d.py <span class="at">--salida</span> 07_modelos_3d</span></code></pre></div>
+<h3 id="generar_reporte_pdfpy"><code>generar_reporte_pdf.py</code></h3>
+<p>Importa directamente los calculadores para evitar copiar números
+manualmente. Genera gráficos de pérdidas, voluta, afinidad y momento;
+después crea el PDF A4 de 12 páginas y su resumen Markdown.</p>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/generar_reporte_pdf.py</span></code></pre></div>
+<h3
+id="generar_manual_documentacionpy"><code>generar_manual_documentacion.py</code></h3>
+<p>Reúne los archivos <code>DOCUMENTACION.md</code>, inserta las figuras
+técnicas, genera un HTML con estilo y lo imprime como PDF mediante
+Chromium. También produce una copia DOCX con Pandoc.</p>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/generar_manual_documentacion.py</span></code></pre></div>
+<h2 id="mapa-de-ecuaciones-implementadas">Mapa de ecuaciones
+implementadas</h2>
+<table>
+<thead>
+<tr>
+<th>Tema</th>
+<th>Ecuación principal</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conversión de presión</td>
+<td><code>Δp = H·9.80665</code></td>
+<td><code>calculo_sirocco.py</code></td>
+</tr>
+<tr>
+<td>Potencia útil</td>
+<td><code>P = QΔp</code></td>
+<td><code>calculo_sirocco.py</code></td>
+</tr>
+<tr>
+<td>Velocidad periférica</td>
+<td><code>U = πDn/60</code></td>
+<td><code>calculo_sirocco.py</code></td>
+</tr>
+<tr>
+<td>Bloqueo</td>
+<td><code>k_b = 1-Zt/(πD sinβ)</code></td>
+<td><code>calculo_sirocco.py</code></td>
+</tr>
+<tr>
+<td>Flujo meridional</td>
+<td><code>C_m = Q/(πDbk_b)</code></td>
+<td><code>calculo_sirocco.py</code></td>
+</tr>
+<tr>
+<td>Deslizamiento</td>
+<td><code>σ = 1-sqrt(sinβ2)/Z^0.7</code></td>
+<td><code>calculo_sirocco.py</code></td>
+</tr>
+<tr>
+<td>Euler</td>
+<td><code>Δp_E = ρU2C_u2</code></td>
+<td><code>calculo_sirocco.py</code></td>
+</tr>
+<tr>
+<td>Voluta</td>
+<td><code>A(θ)=A_s θ/360</code></td>
+<td><code>calculo_sirocco.py</code></td>
+</tr>
+<tr>
+<td>Torque</td>
+<td><code>T=P/ω</code></td>
+<td>ambos calculadores</td>
+</tr>
+<tr>
+<td>Eje</td>
+<td><code>d=[16M_eq/(πτ)]^(1/3)</code></td>
+<td><code>calculo_mecanico_sirocco.py</code></td>
+</tr>
+<tr>
+<td>Velocidad crítica</td>
+<td><code>n_cr=(30/π)sqrt(g/δ)</code></td>
+<td><code>calculo_mecanico_sirocco.py</code></td>
+</tr>
+<tr>
+<td>Rodamiento</td>
+<td><code>C=P(60nL_h/10⁶)^(1/3)</code></td>
+<td><code>calculo_mecanico_sirocco.py</code></td>
+</tr>
+<tr>
+<td>Semejanza</td>
+<td><code>Q∝nD³</code>, <code>Δp∝n²D²</code>, <code>P∝n³D⁵</code></td>
+<td><code>calculo_sirocco.py</code></td>
+</tr>
+</tbody>
+</table>
+<p>La explicación completa está en
+<code>06_calculos/DOCUMENTACION.md</code>.</p>
+<h2 id="pruebas-automáticas">Pruebas automáticas</h2>
+<p>La suite contiene 14 pruebas:</p>
+<ul>
+<li>Conversión de unidades y punto de operación.</li>
+<li>Cierre de presión, potencia y geometría.</li>
+<li>Crecimiento monótono de la voluta.</li>
+<li>Leyes de semejanza.</li>
+<li>Sobrecarga a <code>1500 rpm</code>.</li>
+<li>Masa, correa, flexión, eje y rodamientos.</li>
+<li>Radios y curvatura del álabe CAD.</li>
+<li>Archivos y tamaño mínimo de las mallas OBJ.</li>
+<li>Portabilidad y parámetros de la interfaz 3D.</li>
+<li>Existencia de documentación en todas las carpetas.</li>
+<li>Integridad básica del manual PDF consolidado.</li>
+</ul>
+<p>Ejecutar:</p>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pytest <span class="at">-q</span> 08_software</span></code></pre></div>
+<h2 id="flujo-completo-de-regeneración">Flujo completo de
+regeneración</h2>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/calculo_sirocco.py <span class="dt">\</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--exportar</span> 06_calculos/resultados_v1</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/calculo_mecanico_sirocco.py <span class="dt">\</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--salida</span> 06_calculos/resultados_mecanicos_v1</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/generar_geometria_cad.py <span class="at">--salida</span> 07_planos</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/generar_modelo_3d.py <span class="at">--salida</span> 07_modelos_3d</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/generar_reporte_pdf.py</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/generar_manual_documentacion.py</span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> pytest <span class="at">-q</span> 08_software</span></code></pre></div>
+<h2 id="cómo-modificar-el-diseño">Cómo modificar el diseño</h2>
+<p>Los valores base están en la clase <code>DatosDiseno</code>. Para
+cambios permanentes, editar esa clase y regenerar todos los entregables.
+Para tanteos de caudal, presión y rpm se pueden usar argumentos de línea
+de comandos.</p>
+<p>Después de cualquier cambio debe revisarse:</p>
+<ol type="1">
+<li>Que el motor continúe superando la potencia calculada.</li>
+<li>Que <code>β1</code>, bloqueo y velocidades permanezcan en rangos
+coherentes.</li>
+<li>Que no se mezclen resultados de versiones diferentes.</li>
+<li>Que todas las pruebas pasen.</li>
+</ol>
+<h2 id="limitaciones-del-software">Limitaciones del software</h2>
+<p>No ejecuta CFD, FEA, optimización automática, selección comercial ni
+análisis de ruido. Los resultados son predimensionamientos y geometría
+conceptual.</p>
+<div class="page-break"></div>
+
+<h1 id="documentación-de-09_reporte">Documentación de
+<code>09_reporte</code></h1>
+<h2 id="propósito-7">Propósito</h2>
+<p>Contener el informe principal de presentación y las figuras que lo
+sustentan. El PDF se genera desde los calculadores para mantener
+consistencia entre texto, tablas y resultados.</p>
+<h2 id="informe-principal">Informe principal</h2>
+<h3
+id="informe_diseno_ventilador_siroccopdf"><code>Informe_Diseno_Ventilador_Sirocco.pdf</code></h3>
+<ul>
+<li>Formato A4.</li>
+<li>12 páginas.</li>
+<li>Incluye resumen, metodología, rodete, presión, pérdidas, potencia,
+voluta, mecánica, semejanza, interfaz 3D, archivos reproducibles,
+conclusiones y referencias.</li>
+<li>Punto vigente: <code>10 800 m³/h</code>, <code>882.6 Pa</code>,
+<code>1100 rpm</code>, motor <code>5.5 kW</code>.</li>
+</ul>
+<h3
+id="informe_diseno_ventilador_siroccomd"><code>Informe_Diseno_Ventilador_Sirocco.md</code></h3>
+<p>Resumen textual del informe y enlace lógico con los entregables. No
+contiene todo el desarrollo visual del PDF.</p>
+<h2 id="figuras">Figuras</h2>
+<ul>
+<li><code>modelo_3d_rotor.png</code>: rodete, eje, polea y
+soportes.</li>
+<li><code>modelo_3d_assembly.png</code>: conjunto con voluta.</li>
+<li><code>interfaz_3d.png</code>: captura completa del visor.</li>
+<li><code>geometria_cad_2d.png</code>: geometría de rodete y
+voluta.</li>
+<li><code>perdidas_presion.png</code>: presupuesto de pérdidas.</li>
+<li><code>ley_area_voluta.png</code>: área y radio frente al
+ángulo.</li>
+<li><code>leyes_afinidad.png</code>: variación con rpm.</li>
+<li><code>momento_flector.png</code>: diagrama del eje.</li>
+</ul>
+<h2 id="regeneración-3">Regeneración</h2>
+<div class="sourceCode" id="cb60"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> 08_software/generar_reporte_pdf.py</span></code></pre></div>
+<p>El generador importa <code>calculo_sirocco.py</code> y
+<code>calculo_mecanico_sirocco.py</code>. Por eso los cambios de diseño
+deben hacerse primero en los calculadores.</p>
+<h2 id="cómo-revisar">Cómo revisar</h2>
+<ol type="1">
+<li>Comprobar portada y nombres de integrantes.</li>
+<li>Verificar que las tablas coincidan con
+<code>06_calculos/</code>.</li>
+<li>Revisar que las imágenes no estén cortadas.</li>
+<li>Confirmar que se mantenga la advertencia de diseño preliminar.</li>
+<li>No presentar los resultados como ensayo o certificación.</li>
+</ol>
+<h2 id="documento-recomendado-para-entregar">Documento recomendado para
+entregar</h2>
+<p>Usar este PDF como memoria principal. El PDF de
+<code>documento_latex/</code> es una versión alternativa más breve y no
+incluye toda la revisión V1.2.</p>
+<div class="page-break"></div>
+
+<h1 id="documentación-de-10_interfaz_3d">Documentación de
+<code>10_interfaz_3d</code></h1>
+<h2 id="propósito-8">Propósito</h2>
+<p>Proporcionar una interfaz gráfica para inspeccionar el ventilador sin
+instalar un programa CAD. Todos los recursos están incluidos localmente
+y el visor puede abrirse sin Internet.</p>
+<h2 id="inicio">Inicio</h2>
+<h3 id="windows">Windows</h3>
+<p>Desde la raíz del proyecto, ejecutar:</p>
+<pre class="text"><code>ABRIR_MODELO_3D.bat</code></pre>
+<p>El BAT usa <code>%~dp0</code> para localizar la carpeta del proyecto
+y abre <code>10_interfaz_3d/index.html</code> en el navegador
+predeterminado.</p>
+<h3 id="linux-y-macos">Linux y macOS</h3>
+<p>Abrir <code>index.html</code> directamente con Chrome, Chromium,
+Edge, Firefox o Safari.</p>
+<h2 id="archivos-4">Archivos</h2>
+<ul>
+<li><code>index.html</code>: estructura del panel y del área 3D.</li>
+<li><code>styles.css</code>: diseño adaptable, colores y controles.</li>
+<li><code>app.js</code>: escena, geometría, animación e
+interacción.</li>
+<li><code>ABRIR_MODELO_3D.bat</code>: lanzador cuando se ejecuta desde
+esta carpeta.</li>
+<li><code>vendor/</code>: Three.js y OrbitControls locales.</li>
+</ul>
+<h2 id="datos-cargados">Datos cargados</h2>
+<p>La interfaz lee <code>../07_modelos_3d/modelo_sirocco_v1_2.js</code>.
+Este archivo define <code>window.SIROCCO_DATA</code> con dimensiones,
+punto de operación, perfil de álabe y espiral de voluta.</p>
+<h2 id="construcción-visual">Construcción visual</h2>
+<ul>
+<li>El álabe se crea como una forma extruida y se repite 48 veces.</li>
+<li>Anillos, disco, cubo, eje y polea se construyen con geometrías de
+Three.js.</li>
+<li>La voluta se crea como una forma extruida transparente.</li>
+<li>Flechas y partículas representan cualitativamente la dirección del
+aire.</li>
+<li>Soportes y rodamientos son elementos conceptuales para comprender el
+montaje.</li>
+</ul>
+<h2 id="controles">Controles</h2>
+<ul>
+<li>Arrastrar: rotar la cámara.</li>
+<li>Rueda: acercar o alejar.</li>
+<li>Clic en un componente: mostrar su nombre.</li>
+<li>Vistas: isométrica, frontal, lateral y superior.</li>
+<li>Casillas: mostrar u ocultar rodete, voluta, flujo y rejilla.</li>
+<li>Velocidad visual: controlar la animación.</li>
+<li>Vista explotada: separar grupos para inspección.</li>
+<li>Transparencia: observar el rotor dentro de la carcasa.</li>
+<li>Guardar captura: descargar la vista en PNG.</li>
+<li>Pantalla completa: ampliar el área de trabajo.</li>
+</ul>
+<h2 id="portabilidad">Portabilidad</h2>
+<p>Las rutas de scripts y estilos son relativas. Una prueba automática
+verifica que no existan recursos <code>http://</code> o
+<code>https://</code>. Debe conservarse toda la estructura del proyecto;
+si se separa el HTML de <code>vendor/</code> o de
+<code>07_modelos_3d/</code>, dejará de cargar correctamente.</p>
+<h2 id="modos-de-captura-del-informe">Modos de captura del informe</h2>
+<p>Los parámetros <code>?report=rotor</code> y
+<code>?report=assembly</code> ocultan controles y ajustan la cámara para
+generar figuras limpias del informe.</p>
+<h2 id="limitaciones-1">Limitaciones</h2>
+<p>El visor no realiza CFD ni análisis estructural. Las flechas de aire
+son ilustrativas, no líneas de corriente calculadas.</p>
+<div class="figure">
+<img src="../09_reporte/figuras/interfaz_3d.png" alt="Interfaz gráfica 3D autónoma.">
+<p>Interfaz gráfica 3D autónoma.</p>
+</div>
+
+<div class="page-break"></div>
+
+<h1 id="documentación-de-1-artículo-de-investigación">Documentación de
+<code>1 artículo de investigación</code></h1>
+<h2 id="propósito-9">Propósito</h2>
+<p>Conservar el documento original correspondiente al primer trabajo de
+investigación del curso.</p>
+<h2 id="archivo">Archivo</h2>
+<h3
+id="primer_trabajo_de_investigacion_u-1docx"><code>PRIMER_TRABAJO_DE_INVESTIGACION_U-1.docx</code></h3>
+<p>Documento Word de aproximadamente 174 kB. El contenido está compuesto
+principalmente por tres imágenes incrustadas, por lo que no se puede
+buscar ni extraer el texto con fiabilidad. Debe abrirse visualmente en
+Microsoft Word, LibreOffice Writer o Google Docs.</p>
+<h2 id="cómo-revisarlo">Cómo revisarlo</h2>
+<ol type="1">
+<li>Abrir el DOCX y comprobar las tres páginas o imágenes.</li>
+<li>Identificar título, formato y requisitos de presentación.</li>
+<li>Usar <code>05_avances/articulo_investigacion_borrador.md</code> como
+versión editable del contenido técnico del proyecto.</li>
+</ol>
+<h2 id="limitación">Limitación</h2>
+<p>Este archivo es material de entrada. No contiene los cálculos
+reproducibles ni los resultados vigentes del ventilador; estos se
+encuentran en <code>06_calculos/</code> y <code>08_software/</code>.</p>
+<div class="page-break"></div>
+
+<h1 id="documentación-de-2-diseño-de-turbomaquina">Documentación de
+<code>2 diseño de turbomaquina</code></h1>
+<h2 id="propósito-10">Propósito</h2>
+<p>Conservar el enunciado original del trabajo de diseño asignado por el
+docente.</p>
+<h2 id="requisito-del-grupo-2">Requisito del Grupo 2</h2>
+<p>El archivo <code>Trabajo_Diseno_turbomaquinas_26-I.docx</code>
+asigna:</p>
+<ul>
+<li>Tipo: ventilador Sirocco.</li>
+<li>Altura de presión: <code>H = 90 mm de agua</code>.</li>
+<li>Caudal: <code>Q = 3 m³/s</code>.</li>
+<li>Grupo: <code>Grupo 02</code>.</li>
+<li>Docente: Ing. Armando Cruz Cabrera.</li>
+</ul>
+<h2 id="entregables-solicitados">Entregables solicitados</h2>
+<p>El enunciado pide:</p>
+<ol type="1">
+<li>Cálculo del rodete.</li>
+<li>Cálculo de la voluta.</li>
+<li>Cálculo de pérdidas.</li>
+<li>Desarrollo de software.</li>
+<li>Construcción o propuesta mediante semejanza como modelo.</li>
+<li>Entrega digital e impresa según la programación del curso.</li>
+</ol>
+<h2 id="trazabilidad">Trazabilidad</h2>
+<ul>
+<li>Rodete, voluta, pérdidas y semejanza:
+<code>06_calculos/</code>.</li>
+<li>Software: <code>08_software/</code>.</li>
+<li>Planos: <code>07_planos/</code>.</li>
+<li>Modelo 3D: <code>07_modelos_3d/</code> y
+<code>10_interfaz_3d/</code>.</li>
+<li>Informe para presentar: <code>09_reporte/</code>.</li>
+</ul>
+<p>Este documento define el problema; no es una memoria de cálculo.</p>
+<div class="page-break"></div>
+
+<h1 id="documentación-de-3-resolución-de-problemas">Documentación de
+<code>3 resolución de problemas</code></h1>
+<h2 id="propósito-11">Propósito</h2>
+<p>Conservar el archivo del curso asociado a la resolución de problemas
+y a las aclaraciones de entrega.</p>
+<h2 id="archivo-1">Archivo</h2>
+<p><code>Trabajo_Diseno_turbomaquinas_26-I.docx</code> es actualmente
+idéntico al documento guardado en
+<code>2 diseño de turbomaquina/</code>. Incluye la lista de temas para
+los grupos y las aclaraciones del docente.</p>
+<h2 id="contenido-relevante-para-este-proyecto">Contenido relevante para
+este proyecto</h2>
+<ul>
+<li>Ventilador tipo Sirocco.</li>
+<li><code>H = 90 mmH₂O</code>.</li>
+<li><code>Q = 3 m³/s</code>.</li>
+<li>Cálculo de rodete, voluta y pérdidas.</li>
+<li>Proyección de software.</li>
+<li>Uso de semejanza para un modelo.</li>
+</ul>
+<h2 id="recomendación">Recomendación</h2>
+<p>Mantener esta copia como evidencia del enunciado. Si posteriormente
+se reciben problemas numéricos independientes, agregarlos aquí con
+nombre, fecha, desarrollo, unidades y respuesta verificada.</p>
+<div class="page-break"></div>
+
+<h1 id="documentación-de-documento_latex">Documentación de
+<code>documento_latex</code></h1>
+<h2 id="propósito-12">Propósito</h2>
+<p>Conservar una versión alternativa del informe escrita en LaTeX.</p>
+<h2 id="archivos-5">Archivos</h2>
+<h3
+id="reporte_diseno_siroccotex"><code>reporte_diseno_sirocco.tex</code></h3>
+<p>Fuente LaTeX con portada, índice, configuración seleccionada,
+geometría, triángulo de velocidades, potencia, voluta, comparación de
+rpm y estructura del repositorio.</p>
+<h3
+id="reporte_diseno_siroccopdf"><code>reporte_diseno_sirocco.pdf</code></h3>
+<p>Compilación A4 de 5 páginas. Es una memoria breve de revisión V1.</p>
+<h3
+id="assetssirocco_fan_renderjpg"><code>assets/sirocco_fan_render.jpg</code></h3>
+<p>Imagen utilizada en materiales visuales.</p>
+<h2 id="ecuaciones-incluidas">Ecuaciones incluidas</h2>
+<pre class="text"><code>U2 = π D2 n / 60
+C_m2 = Q / (π D2 b k_b2)
+σ = 1 - sqrt(sin β2) / Z^0.7
+C_u2 = σ U2 - C_m2 cot β2
+Δp_E = ρ U2 C_u2</code></pre>
+<h2 id="compilación">Compilación</h2>
+<p>Desde esta carpeta:</p>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pdflatex</span> reporte_diseno_sirocco.tex</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pdflatex</span> reporte_diseno_sirocco.tex</span></code></pre></div>
+<p>La segunda ejecución actualiza el índice y las referencias
+internas.</p>
+<h2 id="relación-con-el-informe-principal">Relación con el informe
+principal</h2>
+<p>El documento recomendado para presentar es
+<code>09_reporte/Informe_Diseno_Ventilador_Sirocco.pdf</code>, porque
+incluye la revisión mecánica, el modelo 3D y más figuras. Esta versión
+LaTeX puede mantenerse como alternativa editable.</p>
+<div class="page-break"></div>
+
+<h1 id="documentación-de-presentacion">Documentación de
+<code>presentacion</code></h1>
+<h2 id="propósito-13">Propósito</h2>
+<p>Contener dos formas de exposición: una presentación web interactiva y
+un archivo PowerPoint generado con Python.</p>
+<h2 id="presentación-web">Presentación web</h2>
+<h3 id="archivos-6">Archivos</h3>
+<ul>
+<li><code>index.html</code>: siete secciones o diapositivas.</li>
+<li><code>style.css</code>: tema oscuro y distribución visual.</li>
+<li><code>script.js</code>: navegación, cálculo interactivo y dibujo
+SVG.</li>
+</ul>
+<h3 id="diapositivas">Diapositivas</h3>
+<ol type="1">
+<li>Portada.</li>
+<li>Requerimientos de diseño.</li>
+<li>Geometría del rotor.</li>
+<li>Triángulo de velocidades interactivo.</li>
+<li>Voluta y difusión.</li>
+<li>Comparación de <code>1100 rpm</code> y <code>1500 rpm</code>.</li>
+<li>Estructura del repositorio.</li>
+</ol>
+<p>La calculadora visual permite modificar parámetros y redibujar el
+triángulo de velocidades. Para valores oficiales deben usarse los
+scripts de <code>08_software/</code>, no el cálculo del navegador.</p>
+<h2 id="powerpoint">PowerPoint</h2>
+<h3
+id="presentacion_siroccopptx"><code>presentacion_sirocco.pptx</code></h3>
+<p>Presentación de 7 diapositivas en formato panorámico 16:9.</p>
+<h3 id="generate_pptxpy"><code>generate_pptx.py</code></h3>
+<p>Genera el PowerPoint mediante <code>python-pptx</code>. Define
+colores, tarjetas, tipografías, tablas e imágenes.</p>
+<p>Ejecutar desde la carpeta para que las rutas de <code>assets/</code>
+sean correctas:</p>
+<div class="sourceCode" id="cb64"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> presentacion</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> generate_pptx.py</span></code></pre></div>
+<h2 id="recursos">Recursos</h2>
+<ul>
+<li><code>assets/sirocco_fan_render.jpg</code>: render empleado en la
+portada.</li>
+<li><code>assets/placeholder.txt</code>: marcador de la carpeta de
+recursos.</li>
+</ul>
+<h2 id="revisión-antes-de-exponer">Revisión antes de exponer</h2>
+<ol type="1">
+<li>Confirmar que todos los valores sean V1.2.</li>
+<li>No usar <code>1500 rpm</code> como velocidad seleccionada.</li>
+<li>Indicar que la eficiencia de <code>54.5 %</code> es estimada.</li>
+<li>Explicar que el modelo 3D es conceptual.</li>
+<li>Mantener visible la necesidad de CFD y ensayo.</li>
+</ol>
+<div class="page-break"></div>
+</body>
+</html>

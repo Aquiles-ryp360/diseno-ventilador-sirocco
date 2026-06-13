@@ -78,6 +78,15 @@ En Windows se abre `ABRIR_MODELO_3D.bat`. La interfaz tambien puede iniciarse
 abriendo `10_interfaz_3d/index.html` en Linux o macOS. Three.js y los controles
 estan incluidos localmente, por lo que no se descargan dependencias al abrirla.
 
+## Manual de todas las carpetas
+
+```bash
+python3 08_software/generar_manual_documentacion.py
+```
+
+Compila la documentación individual de cada carpeta en un manual visual PDF de
+34 páginas y una copia editable DOCX dentro de `11_documentacion/`.
+
 ## Limite del modelo
 
 El programa es un calculo unidimensional. El factor de deslizamiento, el

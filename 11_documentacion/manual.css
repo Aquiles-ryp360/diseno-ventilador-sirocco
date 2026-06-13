@@ -1,0 +1,99 @@
+@page {
+  size: A4;
+  margin: 18mm 18mm 19mm;
+}
+
+body {
+  color: #243540;
+  font-family: "DejaVu Sans", Arial, sans-serif;
+  font-size: 10pt;
+  line-height: 1.42;
+  max-width: 178mm;
+  margin: 0 auto;
+}
+
+.page-break { page-break-after: always; }
+
+.cover {
+  min-height: 245mm;
+  box-sizing: border-box;
+  color: white;
+  background: linear-gradient(145deg, #071827, #0d3851);
+  padding: 18mm 15mm 12mm;
+  margin: -12mm -12mm 0;
+  text-align: left;
+  page-break-after: always;
+}
+
+.cover h1 {
+  color: white;
+  border: 0;
+  font-size: 27pt;
+  line-height: 1.12;
+  margin: 7mm 0 3mm;
+  page-break-before: avoid;
+}
+
+.cover-kicker { color: #52daf3; font-weight: bold; letter-spacing: 1.5px; }
+.cover-subtitle { color: #c9eff7; font-size: 12pt; max-width: 145mm; }
+.cover img { width: 150mm; height: 82mm; object-fit: cover; display: block; margin: 7mm auto; }
+.cover-data { display: flex; justify-content: space-between; gap: 4mm; margin: 5mm 0; }
+.cover-data span { border: 1px solid #37b8d3; border-radius: 12px; padding: 3px 10px; color: #c8f5ff; }
+.cover-school { color: #e8f6fa; font-size: 9.5pt; line-height: 1.5; }
+
+.figure {
+  text-align: center;
+  margin: 8mm auto;
+  page-break-inside: avoid;
+}
+
+.figure img { max-width: 165mm; max-height: 102mm; object-fit: contain; }
+.figure p { color: #586875; font-size: 8.5pt; margin-top: 2mm; }
+
+h1 {
+  color: #0b2239;
+  border-bottom: 2px solid #00a6c8;
+  font-size: 21pt;
+  padding-bottom: 5px;
+  page-break-before: always;
+}
+
+body > h1:first-of-type {
+  page-break-before: avoid;
+}
+
+h2 { color: #087f99; font-size: 14pt; margin-top: 18px; }
+h3 { color: #31556a; font-size: 11pt; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0 16px;
+  page-break-inside: avoid;
+}
+
+th {
+  background: #0b2239;
+  color: white;
+  text-align: left;
+}
+
+th, td { border: 1px solid #c5d6df; padding: 5px 7px; }
+tr:nth-child(even) td { background: #f2f7f9; }
+
+code {
+  background: #edf4f7;
+  color: #0b5265;
+  padding: 1px 3px;
+}
+
+pre {
+  background: #edf4f7;
+  border-left: 4px solid #00a6c8;
+  padding: 9px 11px;
+  white-space: pre-wrap;
+  page-break-inside: avoid;
+}
+
+a { color: #007d98; text-decoration: none; }
+blockquote { border-left: 4px solid #f39c3d; padding-left: 12px; color: #526672; }

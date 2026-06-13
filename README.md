@@ -26,6 +26,7 @@ convertirse en plano de fabricacion.
 
 ## Archivos principales
 
+- `INDICE_DOCUMENTACION.md`: recorrido y documentación de todas las carpetas.
 - `06_calculos/memoria_calculo_sirocco_v1.md`: memoria tecnica vigente.
 - `06_calculos/resultados_v1/`: tablas CSV, JSON y esquema generado.
 - `06_calculos/memoria_mecanica_sirocco_v1.md`: eje, correas y rodamientos.
@@ -45,6 +46,7 @@ convertirse en plano de fabricacion.
 - `10_interfaz_3d/index.html`: interfaz grafica 3D autonoma y offline.
 - `ABRIR_MODELO_3D.bat`: lanzador de la interfaz para Windows.
 - `09_reporte/Informe_Diseno_Ventilador_Sirocco.pdf`: memoria de 12 paginas.
+- `11_documentacion/`: manual consolidado en PDF y DOCX.
 
 ## Ejecutar
 
@@ -54,6 +56,7 @@ python3 08_software/calculo_sirocco.py --exportar 06_calculos/resultados_v1
 python3 08_software/generar_geometria_cad.py --salida 07_planos
 python3 08_software/generar_modelo_3d.py --salida 07_modelos_3d
 python3 08_software/generar_reporte_pdf.py
+python3 08_software/generar_manual_documentacion.py
 python3 -m pytest -q 08_software
 ```
 
