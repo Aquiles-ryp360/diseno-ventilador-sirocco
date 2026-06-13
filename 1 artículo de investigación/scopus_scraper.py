@@ -3,13 +3,17 @@ import pandas as pd
 import os
 import time
 
-# Configuración de la API Key de Scopus (Elsevier)
-API_KEY = '4b2ef3adefebb726aa0d6188ab697df8'
+# La clave se lee del entorno para evitar publicarla en el repositorio.
+API_KEY = os.environ.get("SCOPUS_API_KEY", "")
 BASE_URL = 'https://api.elsevier.com/content/search/scopus'
 ABSTRACT_URL = 'https://api.elsevier.com/content/abstract/scopus_id/'
 SCOPUS_DIRECT_LINK = 'https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp={}&origin=inward'
 
 def search_scopus(query, count=25):
+    if not API_KEY:
+        raise RuntimeError(
+            "Falta SCOPUS_API_KEY. Configure la variable de entorno antes de ejecutar."
+        )
     headers = {
         'X-ELS-APIKey': API_KEY,
         'Accept': 'application/json'

@@ -1258,7 +1258,7 @@ son ilustrativas, no líneas de corriente calculadas.</p>
 <h2 id="propósito-9">Propósito</h2>
 <p>Conservar el documento original correspondiente al primer trabajo de
 investigación del curso.</p>
-<h2 id="archivo">Archivo</h2>
+<h2 id="archivos-5">Archivos</h2>
 <h3
 id="primer_trabajo_de_investigacion_u-1docx"><code>PRIMER_TRABAJO_DE_INVESTIGACION_U-1.docx</code></h3>
 <p>Documento Word de aproximadamente 174 kB. El contenido está compuesto
@@ -1272,10 +1272,40 @@ Microsoft Word, LibreOffice Writer o Google Docs.</p>
 <li>Usar <code>05_avances/articulo_investigacion_borrador.md</code> como
 versión editable del contenido técnico del proyecto.</li>
 </ol>
+<h3
+id="articulo_gemelo_digitaltex-y-articulo_gemelo_digitalpdf"><code>articulo_gemelo_digital.tex</code>
+y <code>articulo_gemelo_digital.pdf</code></h3>
+<p>Artículo paralelo titulado "Implementación de un Gemelo Digital para
+la Optimización Energética y Diagnóstico Operativo de una Bomba
+Centrífuga Industrial". El PDF tiene 4 páginas y desarrolla arquitectura
+física, IoT, modelo virtual, seguimiento del punto de mejor eficiencia y
+diagnóstico de cavitación. No corresponde al cálculo del ventilador
+Sirocco.</p>
+<h3 id="scopus_scraperpy"><code>scopus_scraper.py</code></h3>
+<p>Extractor de metadatos desde la API de Scopus. Usa
+<code>requests</code> y <code>pandas</code>, pagina resultados, combina
+consultas y exporta un CSV. Requiere la variable de entorno
+<code>SCOPUS_API_KEY</code>; nunca debe guardarse una clave directamente
+en el repositorio.</p>
+<h3
+id="scopus_digital_twin_resultscsv"><code>scopus_digital_twin_results.csv</code></h3>
+<p>Contiene 49 registros y 11 columnas de metadatos sobre gemelos
+digitales, bombas y temas relacionados. Debe revisarse manualmente
+porque una búsqueda automática puede incluir resultados que no
+correspondan exactamente al tema.</p>
+<h3 id="readme_scopusmd"><code>README_SCOPUS.md</code></h3>
+<p>Guía de instalación, configuración segura, estructura de consulta,
+ejecución y campos del CSV.</p>
+<h2 id="separación-temática">Separación temática</h2>
+<p>Esta línea de gemelos digitales para bombas se conserva como trabajo
+de investigación independiente. No usar sus resultados como validación
+del ventilador Sirocco ni mezclar sus referencias con la memoria del
+diseño sin una justificación explícita.</p>
 <h2 id="limitación">Limitación</h2>
-<p>Este archivo es material de entrada. No contiene los cálculos
-reproducibles ni los resultados vigentes del ventilador; estos se
-encuentran en <code>06_calculos/</code> y <code>08_software/</code>.</p>
+<p>El DOCX es material de entrada y el artículo de gemelo digital
+corresponde a otra turbomáquina. Ninguno contiene los cálculos
+reproducibles vigentes del ventilador; estos se encuentran en
+<code>06_calculos/</code> y <code>08_software/</code>.</p>
 <div class="page-break"></div>
 
 <h1 id="documentación-de-2-diseño-de-turbomaquina">Documentación de
@@ -1321,7 +1351,7 @@ asigna:</p>
 <h2 id="propósito-11">Propósito</h2>
 <p>Conservar el archivo del curso asociado a la resolución de problemas
 y a las aclaraciones de entrega.</p>
-<h2 id="archivo-1">Archivo</h2>
+<h2 id="archivo">Archivo</h2>
 <p><code>Trabajo_Diseno_turbomaquinas_26-I.docx</code> es actualmente
 idéntico al documento guardado en
 <code>2 diseño de turbomaquina/</code>. Incluye la lista de temas para
@@ -1346,7 +1376,7 @@ nombre, fecha, desarrollo, unidades y respuesta verificada.</p>
 <code>documento_latex</code></h1>
 <h2 id="propósito-12">Propósito</h2>
 <p>Conservar una versión alternativa del informe escrita en LaTeX.</p>
-<h2 id="archivos-5">Archivos</h2>
+<h2 id="archivos-6">Archivos</h2>
 <h3
 id="reporte_diseno_siroccotex"><code>reporte_diseno_sirocco.tex</code></h3>
 <p>Fuente LaTeX con portada, índice, configuración seleccionada,
@@ -1385,7 +1415,7 @@ LaTeX puede mantenerse como alternativa editable.</p>
 <p>Contener dos formas de exposición: una presentación web interactiva y
 un archivo PowerPoint generado con Python.</p>
 <h2 id="presentación-web">Presentación web</h2>
-<h3 id="archivos-6">Archivos</h3>
+<h3 id="archivos-7">Archivos</h3>
 <ul>
 <li><code>index.html</code>: siete secciones o diapositivas.</li>
 <li><code>style.css</code>: tema oscuro y distribución visual.</li>

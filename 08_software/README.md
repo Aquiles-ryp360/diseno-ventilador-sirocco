@@ -84,8 +84,8 @@ estan incluidos localmente, por lo que no se descargan dependencias al abrirla.
 python3 08_software/generar_manual_documentacion.py
 ```
 
-Compila la documentación individual de cada carpeta en un manual visual PDF de
-34 páginas y una copia editable DOCX dentro de `11_documentacion/`.
+Compila la documentación individual de cada carpeta en un manual visual PDF y
+una copia editable DOCX dentro de `11_documentacion/`.
 
 ## Limite del modelo
 

@@ -21,10 +21,22 @@ La API de Scopus requiere una clave de autenticación para permitir solicitudes.
 1.  Regístrate o inicia sesión en el portal de desarrolladores de Elsevier: [Elsevier Developer Portal](https://dev.elsevier.com/).
 2.  Haz clic en **"Create API Key"**.
 3.  Ingresa un nombre para tu clave (ej. *ScopusResearch*) y la URL de tu sitio (puedes usar `http://localhost`).
-4.  Copia la clave generada y reemplázala en la línea 6 del script `scopus_scraper.py`:
-    ```python
-    API_KEY = 'TU_NUEVA_API_KEY_AQUÍ'
+4.  Configura la clave como variable de entorno; no la escribas en el código:
+
+    Linux o macOS:
+
+    ```bash
+    export SCOPUS_API_KEY="TU_CLAVE"
     ```
+
+    Windows PowerShell:
+
+    ```powershell
+    $env:SCOPUS_API_KEY="TU_CLAVE"
+    ```
+
+> Si una clave se publicó previamente en GitHub, debe revocarse en Elsevier
+> Developer Portal y reemplazarse por una nueva.
 
 > ⚠️ **Nota de Red / Acceso Institucional:** La API de Scopus suele limitar el acceso completo a los metadatos y resúmenes a menos que la consulta provenga de una dirección IP autorizada institucionalmente (ej. red de tu universidad o conexión a través de VPN institucional).
 
